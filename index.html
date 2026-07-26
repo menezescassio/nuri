@@ -165,14 +165,14 @@ footer a { color: var(--ink-2); }
   </header>
 
   <nav class="tabs" role="tablist">
-    <button role="tab" id="tab-overview" aria-selected="true" aria-controls="panel-overview">Overview</button>
-    <button role="tab" id="tab-declines" aria-selected="false" aria-controls="panel-declines">Declines</button>
+    <button role="tab" id="tab-overview" aria-selected="true" aria-controls="panel-overview">What changed</button>
+    <button role="tab" id="tab-declines" aria-selected="false" aria-controls="panel-declines">Why</button>
     <button role="tab" id="tab-levers" aria-selected="false" aria-controls="panel-levers">Who can fix what</button>
   </nav>
 
   <div class="panelwrap">
     <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
-      <h2>Your approval rate fell in the fourth quarter, and it has not levelled off</h2>
+      <h2>Your approval rate fell in the fourth quarter, and it has not leveled off</h2>
       <p class="sub">Your own history is the comparison shown here. Approval rates at other merchants are their commercial information and are deliberately not reported in this portal.</p>
       <div class="stats" id="overview-stats"></div>
       <figure>
@@ -223,7 +223,7 @@ footer a { color: var(--ink-2); }
 
   <footer>
     Figures generated from a synthetic transaction file by a script in the accompanying
-    analysis repository; this page contains no live data and makes no network requests.
+    analysis repository; this page holds no live data and makes no request to any external service.
     Nurivio is a prototype interface built to accompany a product and operations case
     study. It is not a product of, endorsed by, or affiliated with Nubank or any other
     financial institution, and it uses no logo, wordmark or asset belonging to one.
@@ -238,6 +238,19 @@ const GRID = getComputedStyle(document.documentElement).getPropertyValue('--grid
 const MUTED = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
 const INK2 = getComputedStyle(document.documentElement).getPropertyValue('--ink-2').trim();
 const SURFACE = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+                     'July', 'August', 'September', 'October', 'November', 'December'];
+// Every other artifact writes dates as "29 September". Match that here rather
+// than showing the raw ISO string the data file stores.
+const longDate = iso => {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${d} ${MONTH_NAMES[m - 1]}`;
+};
+const shortDate = iso => {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${d} ${MONTH_NAMES[m - 1].slice(0, 3)}`;
+};
 
 const svgEl = (name, attrs) => {
   const el = document.createElementNS('http://www.w3.org/2000/svg', name);
@@ -302,7 +315,7 @@ function lineChart(target, opts) {
 
 const LEVERS = [
   {
-    title: 'Card status',
+    title: 'Card Status',
     side: 'Shared: merchant, issuer and cardholder',
     what: 'The card details presented did not match a card the issuer could authorize. That covers details that are wrong or out of date on the merchant side, and cards that are blocked, reissued or closed on the issuer side.',
     points: [
@@ -312,7 +325,7 @@ const LEVERS = [
     ]
   },
   {
-    title: 'Insufficient limit',
+    title: 'Insufficient Limit',
     side: 'Issuer and cardholder',
     what: 'The cardholder did not have enough available credit at the moment of the charge.',
     points: [
@@ -322,12 +335,11 @@ const LEVERS = [
     ]
   },
   {
-    title: 'Fraud checks',
+    title: 'Fraud Checks',
     side: 'Issuer',
     what: 'The issuer\'s fraud model declined the transaction.',
     points: [
-      'On your side: little directly, beyond the quality and consistency of the data sent with each authorization.',
-      'On the issuer side: the model and the thresholds it runs at.',
+      'This one sits entirely on the issuer side.',
       'What your data supports: this reason is a small and stable share of your declines and is not part of your recent change. Whether any individual decline was correct is not something a decline record can answer, on either side.'
     ]
   }
@@ -344,9 +356,11 @@ function render(data) {
       s.attempts.toLocaleString('en-US') + ' attempts'],
     ['down', s.approvalRatePost + '%', 'October to December',
       'against ' + s.approvalRatePre + '% January to September'],
-    ['', s.customers.toLocaleString('en-US'), 'Cardholders billed', 'in the period'],
+    ['', s.customers.toLocaleString('en-US'), 'Cardholders billed',
+      'across ' + s.attempts.toLocaleString('en-US') + ' attempts'],
     ['', 'R$ ' + Math.round(s.approvedValue).toLocaleString('en-US'), 'Approved value',
-      s.priceTiers.length + ' price points'],
+      'on ' + s.priceTiers.length + ' price points, R$ ' + s.priceTiers[0].toFixed(2)
+      + ' to R$ ' + s.priceTiers[s.priceTiers.length - 1].toFixed(2)],
   ].map(([cls, v, l, n]) =>
     `<div class="stat"><div class="v ${cls}">${v}</div><div class="l">${l}</div><div class="n">${n}</div></div>`
   ).join('');
@@ -366,12 +380,12 @@ function render(data) {
 
   const breakIndex = data.weekly.findIndex(w => w.week === s.breakWeek);
   lineChart(document.getElementById('chart-weekly'), {
-    x: data.weekly.map((w, i) => i % 6 === 0 ? w.week.slice(5) : ''),
+    x: data.weekly.map((w, i) => i % 6 === 0 ? shortDate(w.week) : ''),
     series: [{values: data.weekly.map(w => w.cardStatus), color: PURPLE, width: 2.2}],
     min: 10, max: 50, ticks: 4, height: 300,
     band: [s.baselineLow, s.baselineHigh],
     axisTitle: 'Card status declines per 100 attempts, weekly',
-    markAt: breakIndex, markLabel: 'week of ' + s.breakWeek,
+    markAt: breakIndex, markLabel: 'week of ' + longDate(s.breakWeek),
     label: 'Weekly card status decline rate showing the change in late September'
   });
   document.getElementById('cap-weekly').textContent =
