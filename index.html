@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Nurivio: merchant authorization transparency (prototype)</title>
+<meta name="description" content="Prototype merchant portal showing authorization decline reasons on synthetic data. Not affiliated with any card issuer.">
+<style>
+:root {
+  color-scheme: light dark;
+  --purple: #820AD1;
+  --green: #0D7D57;
+  --amber: #B07D00;
+  --context: #8A8A93;
+  --ink: #17161A;
+  --ink-2: #56545E;
+  --muted: #8A8A93;
+  --grid: #E7E5EA;
+  --rule: #DFDCE4;
+  --surface: #FFFFFF;
+  --plane: #F7F6F9;
+  --warn-bg: #FFF6DC;
+  --warn-ink: #6B4E00;
+  --warn-rule: #E8CE85;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --purple: #AB5CF5;
+    --green: #26A06D;
+    --amber: #BC8A28;
+    --context: #8A8A93;
+    --ink: #F4F3F6;
+    --ink-2: #B4B1BC;
+    --muted: #8A8A93;
+    --grid: #2A2830;
+    --rule: #34313C;
+    --surface: #1B1A1F;
+    --plane: #141317;
+    --warn-bg: #2E2611;
+    --warn-ink: #E8CE85;
+    --warn-rule: #574722;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--plane);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
+
+.disclaimer {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-bottom: 1px solid var(--warn-rule);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 11px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.disclaimer .inner { max-width: 1080px; margin: 0 auto; }
+.disclaimer b { font-weight: 700; }
+
+header.top { padding: 26px 0 18px; }
+.brand { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.brand span { color: var(--purple); }
+.tagline { font-size: 13.5px; color: var(--ink-2); margin-top: 4px; }
+.account {
+  margin-top: 16px; padding: 12px 15px; background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 8px;
+  display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: baseline;
+  font-size: 13.5px;
+}
+.account .who { font-weight: 600; }
+.account .meta { color: var(--muted); font-size: 12.5px; }
+
+nav.tabs { display: flex; gap: 4px; margin: 22px 0 0; flex-wrap: wrap; }
+nav.tabs button {
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2);
+  background: none; border: none; border-radius: 7px 7px 0 0;
+  padding: 9px 15px; cursor: pointer;
+}
+nav.tabs button[aria-selected="true"] { color: var(--purple); background: var(--surface); }
+nav.tabs button:hover { color: var(--ink); }
+
+.panelwrap {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 0 10px 10px 10px; padding: 24px;
+}
+h2 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 13.5px; font-weight: 700; margin-bottom: 10px; }
+p.sub { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; max-width: 720px; }
+
+.stats { display: flex; flex-wrap: wrap; gap: 20px; margin: 22px 0 8px; }
+.stat { flex: 1 1 170px; }
+.stat .v { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.stat .v.down { color: var(--purple); }
+.stat .l { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
+.stat .n { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+figure { margin: 22px 0 0; }
+figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+figcaption { font-size: 11.5px; color: var(--muted); margin-top: 9px; line-height: 1.45; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px;
+          color: var(--ink-2); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px;
+            margin-right: 6px; vertical-align: 0; }
+
+table { border-collapse: collapse; width: 100%; margin-top: 16px;
+        font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 12px 9px 0; font-size: 13.5px; vertical-align: top; }
+thead th { font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+           border-bottom: 1px solid var(--rule); }
+tbody td { border-bottom: 1px solid var(--grid); }
+tbody tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; padding-right: 20px; }
+.up { color: var(--purple); font-weight: 600; }
+.flat { color: var(--ink-2); }
+
+.lever { padding: 16px 0; border-bottom: 1px solid var(--grid); }
+.lever:last-child { border-bottom: none; }
+.lever h4 { font-size: 14.5px; font-weight: 700; }
+.lever .side {
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px; margin-left: 8px; vertical-align: 2px;
+  background: var(--plane); color: var(--ink-2);
+}
+.lever p { font-size: 13.5px; color: var(--ink-2); margin-top: 7px; max-width: 780px; }
+.lever ul { margin: 8px 0 0 18px; font-size: 13.5px; color: var(--ink-2); }
+.lever li { margin-top: 4px; }
+
+footer { margin-top: 30px; font-size: 12px; color: var(--muted); line-height: 1.55; }
+footer a { color: var(--ink-2); }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="disclaimer">
+  <div class="inner">
+    <b>Prototype, synthetic data, not affiliated with Nubank.</b>
+    Nurivio is an unaffiliated design prototype built for a product case study. Every
+    figure comes from a synthetic transaction file created for that exercise. Nothing
+    here is real merchant, customer or issuer data, and nothing here is a live product
+    of any bank or payment company.
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Nuri<span>vio</span></div>
+    <div class="tagline">See why your transactions were declined, and which side of the transaction can act on it.</div>
+    <div class="account">
+      <span class="who">Signed in as Merchant M1</span>
+      <span class="meta">Demonstration account</span>
+      <span class="meta" id="period"></span>
+      <span class="meta" id="attempts"></span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-overview" aria-selected="true" aria-controls="panel-overview">Overview</button>
+    <button role="tab" id="tab-declines" aria-selected="false" aria-controls="panel-declines">Declines</button>
+    <button role="tab" id="tab-levers" aria-selected="false" aria-controls="panel-levers">Who can fix what</button>
+  </nav>
+
+  <div class="panelwrap">
+    <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+      <h2>Your approval rate fell in the fourth quarter, and it has not levelled off</h2>
+      <p class="sub">Your own history is the comparison shown here. Approval rates at other merchants are their commercial information and are deliberately not reported in this portal.</p>
+      <div class="stats" id="overview-stats"></div>
+      <figure>
+        <div class="legend"><span><i style="background:var(--purple)"></i>Approval rate</span></div>
+        <div id="chart-approval"></div>
+        <figcaption id="cap-approval"></figcaption>
+      </figure>
+      <figure>
+        <div class="legend"><span><i style="background:var(--purple)"></i>Card status declines per 100 attempts</span><span><i style="background:var(--grid)"></i>Range before the change</span></div>
+        <div id="chart-weekly"></div>
+        <figcaption id="cap-weekly"></figcaption>
+      </figure>
+    </section>
+
+    <section id="panel-declines" role="tabpanel" aria-labelledby="tab-declines" class="hidden">
+      <h2>One decline reason accounts for the change</h2>
+      <p class="sub">Rates are declines per 100 attempts, so they can be compared across periods of different size. The two periods are January to September and October to December.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Decline reason</th>
+            <th class="num">Declines</th>
+            <th class="num">Share of declines</th>
+            <th class="num">Jan to Sep</th>
+            <th class="num">Oct to Dec</th>
+            <th class="num">Change</th>
+          </tr>
+        </thead>
+        <tbody id="reason-rows"></tbody>
+      </table>
+      <figure>
+        <div class="legend">
+          <span><i style="background:var(--purple)"></i>Card status</span>
+          <span><i style="background:var(--green)"></i>Insufficient limit</span>
+          <span><i style="background:var(--amber)"></i>Fraud checks</span>
+        </div>
+        <div id="chart-reasons"></div>
+        <figcaption id="cap-reasons"></figcaption>
+      </figure>
+    </section>
+
+    <section id="panel-levers" role="tabpanel" aria-labelledby="tab-levers" class="hidden">
+      <h2>Which side of the transaction can act on each reason</h2>
+      <p class="sub">A decline reason is not a diagnosis. This is what each one means, who is able to change it, and what the evidence in your own data currently supports.</p>
+      <div id="levers"></div>
+    </section>
+  </div>
+
+  <footer>
+    Figures generated from a synthetic transaction file by a script in the accompanying
+    analysis repository; this page contains no live data and makes no network requests.
+    Nurivio is a prototype interface built to accompany a product and operations case
+    study. It is not a product of, endorsed by, or affiliated with Nubank or any other
+    financial institution, and it uses no logo, wordmark or asset belonging to one.
+  </footer>
+</div>
+
+<script>
+const PURPLE = getComputedStyle(document.documentElement).getPropertyValue('--purple').trim();
+const GREEN = getComputedStyle(document.documentElement).getPropertyValue('--green').trim();
+const AMBER = getComputedStyle(document.documentElement).getPropertyValue('--amber').trim();
+const GRID = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim();
+const MUTED = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
+const INK2 = getComputedStyle(document.documentElement).getPropertyValue('--ink-2').trim();
+const SURFACE = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+
+const svgEl = (name, attrs) => {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', name);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+};
+
+function lineChart(target, opts) {
+  const W = 1000, H = opts.height || 300;
+  const L = 48, R = opts.right || 20, T = 30, B = 40;
+  const pw = W - L - R, ph = H - T - B;
+  const svg = svgEl('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img',
+                            'aria-label': opts.label || ''});
+  const lo = opts.min, hi = opts.max;
+  const x = i => L + (opts.x.length === 1 ? pw / 2 : i * pw / (opts.x.length - 1));
+  const y = v => T + ph * (1 - (v - lo) / (hi - lo));
+
+  if (opts.band) {
+    svg.appendChild(svgEl('rect', {x: L, y: y(opts.band[1]), width: pw,
+      height: Math.abs(y(opts.band[0]) - y(opts.band[1])), fill: GRID}));
+  }
+  const ticks = opts.ticks || 4;
+  for (let t = 0; t <= ticks; t++) {
+    const v = lo + (hi - lo) * t / ticks;
+    svg.appendChild(svgEl('line', {x1: L, y1: y(v), x2: L + pw, y2: y(v),
+      stroke: GRID, 'stroke-width': 1}));
+    const lab = svgEl('text', {x: L - 9, y: y(v) + 4, 'text-anchor': 'end',
+      'font-size': 11, fill: MUTED});
+    lab.textContent = v.toFixed(0) + '%';
+    svg.appendChild(lab);
+  }
+  opts.x.forEach((label, i) => {
+    if (!label) return;
+    const t = svgEl('text', {x: x(i), y: T + ph + 20, 'text-anchor': 'middle',
+      'font-size': 11, fill: MUTED});
+    t.textContent = label;
+    svg.appendChild(t);
+  });
+  (opts.series || []).forEach(s => {
+    const d = s.values.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+    svg.appendChild(svgEl('path', {d, fill: 'none', stroke: s.color,
+      'stroke-width': s.width || 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
+    if (s.markers) {
+      s.values.forEach((v, i) => svg.appendChild(svgEl('circle', {cx: x(i), cy: y(v), r: 4,
+        fill: s.color, stroke: SURFACE, 'stroke-width': 2})));
+    }
+  });
+  if (opts.markAt !== undefined) {
+    svg.appendChild(svgEl('line', {x1: x(opts.markAt), y1: T, x2: x(opts.markAt), y2: T + ph,
+      stroke: INK2, 'stroke-width': 1, 'stroke-dasharray': '3 3'}));
+    const t = svgEl('text', {x: x(opts.markAt) - 7, y: T + 12, 'text-anchor': 'end',
+      'font-size': 11, 'font-weight': 600, fill: INK2});
+    t.textContent = opts.markLabel || '';
+    svg.appendChild(t);
+  }
+  const axis = svgEl('text', {x: 0, y: 10, 'font-size': 11, 'font-weight': 600, fill: INK2});
+  axis.textContent = opts.axisTitle || '';
+  svg.appendChild(axis);
+  target.innerHTML = '';
+  target.appendChild(svg);
+}
+
+const LEVERS = [
+  {
+    title: 'Card status',
+    side: 'Shared: merchant, issuer and cardholder',
+    what: 'The card details presented did not match a card the issuer could authorize. That covers details that are wrong or out of date on the merchant side, and cards that are blocked, reissued or closed on the issuer side.',
+    points: [
+      'On your side: how card details are captured, stored and transmitted, and whether a stored number is refreshed when a card is reissued.',
+      'On the issuer side: the card lifecycle itself, including blocks and replacements.',
+      'What your data supports: this reason is the whole of your recent change, and it is not explained by cards simply expiring. Roughly a quarter of first ever charges from a new customer decline this way, and most affected cards keep approving intermittently. Both point away from dead cards and towards the details in the authorization message, though the transaction records alone cannot prove where the mismatch is introduced.'
+    ]
+  },
+  {
+    title: 'Insufficient limit',
+    side: 'Issuer and cardholder',
+    what: 'The cardholder did not have enough available credit at the moment of the charge.',
+    points: [
+      'On your side: retry timing relative to the billing cycle, and how a failed renewal is communicated to the customer.',
+      'On the issuer side: the credit limit and how close the attempt came to fitting inside it.',
+      'What your data supports: this reason has been stable all year and is not part of your recent change. It is also the reason with the least visibility on either side, because nothing currently records how close an attempt came to approving.'
+    ]
+  },
+  {
+    title: 'Fraud checks',
+    side: 'Issuer',
+    what: 'The issuer\'s fraud model declined the transaction.',
+    points: [
+      'On your side: little directly, beyond the quality and consistency of the data sent with each authorization.',
+      'On the issuer side: the model and the thresholds it runs at.',
+      'What your data supports: this reason is a small and stable share of your declines and is not part of your recent change. Whether any individual decline was correct is not something a decline record can answer, on either side.'
+    ]
+  }
+];
+
+function render(data) {
+  document.getElementById('period').textContent = data.period;
+  document.getElementById('attempts').textContent =
+    data.summary.attempts.toLocaleString('en-US') + ' authorization attempts';
+
+  const s = data.summary;
+  document.getElementById('overview-stats').innerHTML = [
+    ['', s.approvalRate + '%', 'Approval rate, full year',
+      s.attempts.toLocaleString('en-US') + ' attempts'],
+    ['down', s.approvalRatePost + '%', 'October to December',
+      'against ' + s.approvalRatePre + '% January to September'],
+    ['', s.customers.toLocaleString('en-US'), 'Cardholders billed', 'in the period'],
+    ['', 'R$ ' + Math.round(s.approvedValue).toLocaleString('en-US'), 'Approved value',
+      s.priceTiers.length + ' price points'],
+  ].map(([cls, v, l, n]) =>
+    `<div class="stat"><div class="v ${cls}">${v}</div><div class="l">${l}</div><div class="n">${n}</div></div>`
+  ).join('');
+
+  lineChart(document.getElementById('chart-approval'), {
+    x: data.monthly.map(m => m.month),
+    series: [{values: data.monthly.map(m => m.approvalRate), color: PURPLE, markers: true}],
+    min: 40, max: 80, ticks: 4, height: 300,
+    axisTitle: 'Approval rate, monthly', markAt: 9, markLabel: 'change begins',
+    label: 'Monthly approval rate for merchant M1 across 2025'
+  });
+  document.getElementById('cap-approval').textContent =
+    'Approved transactions as a share of attempts, by month. Monthly attempts range from '
+    + Math.min(...data.monthly.map(m => m.attempts)).toLocaleString('en-US') + ' to '
+    + Math.max(...data.monthly.map(m => m.attempts)).toLocaleString('en-US')
+    + '. Source: your authorization records, full year 2025.';
+
+  const breakIndex = data.weekly.findIndex(w => w.week === s.breakWeek);
+  lineChart(document.getElementById('chart-weekly'), {
+    x: data.weekly.map((w, i) => i % 6 === 0 ? w.week.slice(5) : ''),
+    series: [{values: data.weekly.map(w => w.cardStatus), color: PURPLE, width: 2.2}],
+    min: 10, max: 50, ticks: 4, height: 300,
+    band: [s.baselineLow, s.baselineHigh],
+    axisTitle: 'Card status declines per 100 attempts, weekly',
+    markAt: breakIndex, markLabel: 'week of ' + s.breakWeek,
+    label: 'Weekly card status decline rate showing the change in late September'
+  });
+  document.getElementById('cap-weekly').textContent =
+    'Shaded band is the range this rate held before the change, ' + s.baselineLow + '% to '
+    + s.baselineHigh + '%. Weeks with fewer than 100 attempts are excluded. '
+    + 'Source: your authorization records, full year 2025.';
+
+  document.getElementById('reason-rows').innerHTML = data.reasons.map(r => {
+    const moved = Math.abs(r.change) >= 1;
+    const sign = r.change > 0 ? '+' : '';
+    return `<tr>
+      <td><strong>${r.reason}</strong></td>
+      <td class="num">${r.denials.toLocaleString('en-US')}</td>
+      <td class="num">${r.shareOfDenials}%</td>
+      <td class="num">${r.ratePre}</td>
+      <td class="num">${r.ratePost}</td>
+      <td class="num ${moved ? 'up' : 'flat'}">${sign}${r.change} pp</td>
+    </tr>`;
+  }).join('');
+
+  lineChart(document.getElementById('chart-reasons'), {
+    x: data.monthly.map(m => m.month),
+    series: [
+      {values: data.monthly.map(m => m.cardStatus), color: PURPLE, markers: true},
+      {values: data.monthly.map(m => m.limitExceeded), color: GREEN, markers: true},
+      {values: data.monthly.map(m => m.fraudRisk), color: AMBER, markers: true},
+    ],
+    min: 0, max: 45, ticks: 3, height: 300,
+    axisTitle: 'Declines per 100 attempts, monthly',
+    label: 'Monthly decline rate by reason'
+  });
+  document.getElementById('cap-reasons').textContent =
+    'Each reason as declines per 100 attempts, by month. Card status is the only one that moves. '
+    + 'Source: your authorization records, full year 2025.';
+
+  document.getElementById('levers').innerHTML = LEVERS.map(l => `
+    <div class="lever">
+      <h4>${l.title}<span class="side">${l.side}</span></h4>
+      <p>${l.what}</p>
+      <ul>${l.points.map(p => `<li>${p}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+const tabs = [...document.querySelectorAll('nav.tabs button')];
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  tabs.forEach(t => {
+    const selected = t === tab;
+    t.setAttribute('aria-selected', String(selected));
+    document.getElementById(t.getAttribute('aria-controls')).classList.toggle('hidden', !selected);
+  });
+}));
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(render)
+  .catch(() => {
+    document.querySelector('.panelwrap').innerHTML =
+      '<h2>Could not load the demonstration data</h2>' +
+      '<p class="sub">This page reads data.json from the same directory. ' +
+      'Serve the folder over HTTP rather than opening the file directly.</p>';
+  });
+</script>
+</body>
+</html>
