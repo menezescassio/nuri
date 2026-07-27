@@ -77,11 +77,29 @@ header.top { padding: 26px 0 16px; }
 .adminbar .role { font-weight: 700; }
 .adminbar label { color: rgba(255,255,255,0.72); }
 .adminbar select {
-  font: inherit; font-size: 13px; font-weight: 600; padding: 4px 8px;
-  border: 1px solid rgba(255,255,255,0.28); border-radius: 6px;
-  background: rgba(255,255,255,0.10); color: #FFFFFF;
+  font: inherit; font-size: 13px; font-weight: 600;
+  padding: 5px 30px 5px 10px;
+  border: 1px solid rgba(255,255,255,0.30); border-radius: 6px;
+  /* A native select is painted by the operating system, which ignores a
+     translucent background and renders it white against this dark bar. Resetting
+     the appearance and drawing the chevron here keeps it in the bar's palette on
+     every platform, and the colour is fixed rather than themed for the same
+     reason the bar itself is. */
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #3A3746;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 7px;
+  color: #FFFFFF;
+  cursor: pointer;
 }
-.adminbar select option { color: var(--ink); background: #FFFFFF; }
+.adminbar select:hover { background-color: #45414F; }
+.adminbar select:focus-visible { outline: 2px solid rgba(255,255,255,0.55); outline-offset: 2px; }
+/* The open list is drawn by the operating system; these are the two properties
+   it honours. */
+.adminbar select option { color: #17161A; background: #FFFFFF; }
 .adminbar .note { color: rgba(255,255,255,0.72); font-size: 12.5px; }
 
 .account {
