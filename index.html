@@ -4,18 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Nurivio: merchant authorization transparency (prototype)</title>
-<meta name="description" content="Prototype merchant portal showing authorization decline reasons on synthetic data. Not affiliated with any card issuer.">
+<title>NuRi: automated authorization review for commercial partners (prototype)</title>
+<meta name="description" content="Prototype partner portal that reviews authorization declines automatically and explains which side of the transaction can act. Synthetic data, not affiliated with any card issuer.">
 <style>
 :root {
   color-scheme: light dark;
   --purple: #820AD1;
   --green: #0D7D57;
   --amber: #B07D00;
-  --context: #8A8A93;
   --ink: #17161A;
   --ink-2: #56545E;
-  --muted: #8A8A93;
+  --muted: #767681;
   --grid: #E7E5EA;
   --rule: #DFDCE4;
   --surface: #FFFFFF;
@@ -23,68 +22,81 @@
   --warn-bg: #FFF6DC;
   --warn-ink: #6B4E00;
   --warn-rule: #E8CE85;
+  --flag-bg: #F6EAFD;
+  --flag-rule: #DFC0F5;
+  --ok-bg: #E9F5F0;
+  --ok-rule: #B9DCCD;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --purple: #AB5CF5;
-    --green: #26A06D;
-    --amber: #BC8A28;
-    --context: #8A8A93;
-    --ink: #F4F3F6;
-    --ink-2: #B4B1BC;
-    --muted: #8A8A93;
-    --grid: #2A2830;
-    --rule: #34313C;
-    --surface: #1B1A1F;
-    --plane: #141317;
-    --warn-bg: #2E2611;
-    --warn-ink: #E8CE85;
-    --warn-rule: #574722;
+    --purple: #AB5CF5; --green: #26A06D; --amber: #BC8A28;
+    --ink: #F4F3F6; --ink-2: #B4B1BC; --muted: #9C99A6;
+    --grid: #2A2830; --rule: #34313C; --surface: #1B1A1F; --plane: #141317;
+    --warn-bg: #2E2611; --warn-ink: #E8CE85; --warn-rule: #574722;
+    --flag-bg: #241633; --flag-rule: #4A2C68;
+    --ok-bg: #12241D; --ok-rule: #24463A;
   }
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: var(--plane);
-  color: var(--ink);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  background: var(--plane); color: var(--ink);
+  font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
 }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
 
 .disclaimer {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
+  background: var(--warn-bg); color: var(--warn-ink);
   border-bottom: 1px solid var(--warn-rule);
-  font-size: 13px;
-  line-height: 1.45;
-  padding: 11px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  font-size: 13px; line-height: 1.45; padding: 11px 20px;
+  position: sticky; top: 0; z-index: 10;
 }
 .disclaimer .inner { max-width: 1080px; margin: 0 auto; }
 .disclaimer b { font-weight: 700; }
 
-header.top { padding: 26px 0 18px; }
-.brand { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
-.brand span { color: var(--purple); }
-.tagline { font-size: 13.5px; color: var(--ink-2); margin-top: 4px; }
+header.top { padding: 26px 0 16px; }
+.brand { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.brand .nu { color: var(--purple); }
+.tagline { font-size: 13.5px; color: var(--ink-2); margin-top: 5px; max-width: 660px; }
+
 .account {
-  margin-top: 16px; padding: 12px 15px; background: var(--surface);
+  margin-top: 18px; padding: 13px 15px; background: var(--surface);
   border: 1px solid var(--rule); border-radius: 8px;
-  display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: baseline;
-  font-size: 13.5px;
+  display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; font-size: 13.5px;
 }
-.account .who { font-weight: 600; }
+.account label { font-weight: 600; }
+.account select {
+  font: inherit; font-size: 13.5px; font-weight: 600; padding: 5px 9px;
+  border: 1px solid var(--rule); border-radius: 6px;
+  background: var(--plane); color: var(--ink);
+}
 .account .meta { color: var(--muted); font-size: 12.5px; }
 
-nav.tabs { display: flex; gap: 4px; margin: 22px 0 0; flex-wrap: wrap; }
+.review { margin-top: 24px; }
+.review h2 { font-size: 15px; font-weight: 700; }
+.review .when { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+.cards { display: grid; gap: 12px; margin-top: 13px; }
+.card { border: 1px solid var(--rule); border-radius: 9px; padding: 15px 17px; background: var(--surface); }
+.card.attention { background: var(--flag-bg); border-color: var(--flag-rule); }
+.card.good { background: var(--ok-bg); border-color: var(--ok-rule); }
+.card .tag {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card.attention .tag { color: var(--purple); }
+.card.good .tag { color: var(--green); }
+.card h3 { font-size: 15px; font-weight: 700; margin: 5px 0 7px; line-height: 1.35; }
+.card p { font-size: 13.5px; color: var(--ink-2); }
+.card .do {
+  font-size: 13px; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+}
+.card .do b { color: var(--ink); font-weight: 600; }
+
+nav.tabs { display: flex; gap: 4px; margin: 26px 0 0; flex-wrap: wrap; }
 nav.tabs button {
   font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2);
-  background: none; border: none; border-radius: 7px 7px 0 0;
-  padding: 9px 15px; cursor: pointer;
+  background: none; border: none; border-radius: 7px 7px 0 0; padding: 9px 15px; cursor: pointer;
 }
 nav.tabs button[aria-selected="true"] { color: var(--purple); background: var(--surface); }
 nav.tabs button:hover { color: var(--ink); }
@@ -93,8 +105,7 @@ nav.tabs button:hover { color: var(--ink); }
   background: var(--surface); border: 1px solid var(--rule);
   border-radius: 0 10px 10px 10px; padding: 24px;
 }
-h2 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
-h3 { font-size: 13.5px; font-weight: 700; margin-bottom: 10px; }
+h2.panel-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
 p.sub { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; max-width: 720px; }
 
 .stats { display: flex; flex-wrap: wrap; gap: 20px; margin: 22px 0 8px; }
@@ -107,21 +118,15 @@ p.sub { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; max-width: 720p
 figure { margin: 22px 0 0; }
 figure svg { display: block; width: 100%; height: auto; overflow: visible; }
 figcaption { font-size: 11.5px; color: var(--muted); margin-top: 9px; line-height: 1.45; }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px;
-          color: var(--ink-2); margin-bottom: 8px; }
-.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px;
-            margin-right: 6px; vertical-align: 0; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-2); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
 
-table { border-collapse: collapse; width: 100%; margin-top: 16px;
-        font-variant-numeric: tabular-nums; }
+table { border-collapse: collapse; width: 100%; margin-top: 16px; font-variant-numeric: tabular-nums; }
 th, td { text-align: left; padding: 9px 12px 9px 0; font-size: 13.5px; vertical-align: top; }
-thead th { font-size: 11.5px; font-weight: 600; color: var(--ink-2);
-           border-bottom: 1px solid var(--rule); }
+thead th { font-size: 11.5px; font-weight: 600; color: var(--ink-2); border-bottom: 1px solid var(--rule); }
 tbody td { border-bottom: 1px solid var(--grid); }
 tbody tr:last-child td { border-bottom: none; }
 td.num, th.num { text-align: right; padding-right: 20px; }
-.up { color: var(--purple); font-weight: 600; }
-.flat { color: var(--ink-2); }
 
 .lever { padding: 16px 0; border-bottom: 1px solid var(--grid); }
 .lever:last-child { border-bottom: none; }
@@ -135,8 +140,12 @@ td.num, th.num { text-align: right; padding-right: 20px; }
 .lever ul { margin: 8px 0 0 18px; font-size: 13.5px; color: var(--ink-2); }
 .lever li { margin-top: 4px; }
 
+.method { margin-top: 22px; padding: 15px 17px; background: var(--plane);
+          border: 1px solid var(--rule); border-radius: 9px; }
+.method h3 { font-size: 13px; font-weight: 700; }
+.method p { font-size: 12.5px; color: var(--ink-2); margin-top: 7px; max-width: 830px; }
+
 footer { margin-top: 30px; font-size: 12px; color: var(--muted); line-height: 1.55; }
-footer a { color: var(--ink-2); }
 .hidden { display: none; }
 </style>
 </head>
@@ -145,24 +154,31 @@ footer a { color: var(--ink-2); }
 <div class="disclaimer">
   <div class="inner">
     <b>Prototype, synthetic data, not affiliated with Nubank.</b>
-    Nurivio is an unaffiliated design prototype built for a product case study. Every
+    NuRi is an unaffiliated design prototype built for a product case study. Every
     figure comes from a synthetic transaction file created for that exercise. Nothing
-    here is real merchant, customer or issuer data, and nothing here is a live product
+    here is real partner, customer or issuer data, and nothing here is a live product
     of any bank or payment company.
   </div>
 </div>
 
 <div class="wrap">
   <header class="top">
-    <div class="brand">Nuri<span>vio</span></div>
-    <div class="tagline">See why your transactions were declined, and which side of the transaction can act on it.</div>
+    <div class="brand"><span class="nu">Nu</span>Ri</div>
+    <div class="tagline">Revenue intelligence for commercial partners. Your authorization performance is reviewed automatically every week, and each decline reason is mapped to whichever side of the transaction can act on it.</div>
     <div class="account">
-      <span class="who">Signed in as Merchant M1</span>
+      <label for="partner">Viewing as</label>
+      <select id="partner"></select>
       <span class="meta">Demonstration account</span>
       <span class="meta" id="period"></span>
       <span class="meta" id="attempts"></span>
     </div>
   </header>
+
+  <section class="review">
+    <h2>This period's review</h2>
+    <div class="when" id="review-when"></div>
+    <div class="cards" id="cards"></div>
+  </section>
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-overview" aria-selected="true" aria-controls="panel-overview">What changed</button>
@@ -172,8 +188,8 @@ footer a { color: var(--ink-2); }
 
   <div class="panelwrap">
     <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
-      <h2>Your approval rate fell in the fourth quarter, and it has not leveled off</h2>
-      <p class="sub">Your own history is the comparison shown here. Approval rates at other merchants are their commercial information and are deliberately not reported in this portal.</p>
+      <h2 class="panel-title" id="overview-title"></h2>
+      <p class="sub">Your own history is the comparison shown here. Approval rates at other partners are their commercial information and are deliberately not reported in this portal.</p>
       <div class="stats" id="overview-stats"></div>
       <figure>
         <div class="legend"><span><i style="background:var(--purple)"></i>Approval rate</span></div>
@@ -181,31 +197,29 @@ footer a { color: var(--ink-2); }
         <figcaption id="cap-approval"></figcaption>
       </figure>
       <figure>
-        <div class="legend"><span><i style="background:var(--purple)"></i>Card status declines per 100 attempts</span><span><i style="background:var(--grid)"></i>Range before the change</span></div>
+        <div class="legend"><span><i style="background:var(--purple)"></i>Card detail declines per 100 attempts</span><span><i style="background:var(--grid)"></i>Range before the change</span></div>
         <div id="chart-weekly"></div>
         <figcaption id="cap-weekly"></figcaption>
       </figure>
     </section>
 
     <section id="panel-declines" role="tabpanel" aria-labelledby="tab-declines" class="hidden">
-      <h2>One decline reason accounts for the change</h2>
-      <p class="sub">Rates are declines per 100 attempts, so they can be compared across periods of different size. The two periods are January to September and October to December.</p>
+      <h2 class="panel-title">Where your declines come from</h2>
+      <p class="sub">Rates are declines per 100 attempts, so they compare across periods of different size.</p>
       <table>
         <thead>
           <tr>
             <th>Decline reason</th>
             <th class="num">Declines</th>
             <th class="num">Share of declines</th>
-            <th class="num">Jan to Sep</th>
-            <th class="num">Oct to Dec</th>
-            <th class="num">Change</th>
+            <th class="num">Per 100 attempts</th>
           </tr>
         </thead>
         <tbody id="reason-rows"></tbody>
       </table>
       <figure>
         <div class="legend">
-          <span><i style="background:var(--purple)"></i>Card status</span>
+          <span><i style="background:var(--purple)"></i>Card details</span>
           <span><i style="background:var(--green)"></i>Insufficient limit</span>
           <span><i style="background:var(--amber)"></i>Fraud checks</span>
         </div>
@@ -215,42 +229,37 @@ footer a { color: var(--ink-2); }
     </section>
 
     <section id="panel-levers" role="tabpanel" aria-labelledby="tab-levers" class="hidden">
-      <h2>Which side of the transaction can act on each reason</h2>
-      <p class="sub">A decline reason is not a diagnosis. This is what each one means, who is able to change it, and what the evidence in your own data currently supports.</p>
+      <h2 class="panel-title">Which side of the transaction can act on each reason</h2>
+      <p class="sub">A decline reason is not a diagnosis. This is what each one means, who is able to change it, and what your own data currently supports.</p>
       <div id="levers"></div>
     </section>
   </div>
 
+  <div class="method">
+    <h3>How this review is produced</h3>
+    <p id="method-body"></p>
+    <p>The rules are deliberately simple and stated rather than learned, because a partner reading an alert is owed a rule they can check. Nothing here is written by hand for any individual partner: the same rules run against every partner's data, and most periods produce no flags at all. Switching accounts above shows that directly.</p>
+  </div>
+
   <footer>
     Figures generated from a synthetic transaction file by a script in the accompanying
-    analysis repository; this page holds no live data and makes no request to any external service.
-    Nurivio is a prototype interface built to accompany a product and operations case
+    analysis repository; this page holds no live data and makes no request to any external
+    service. NuRi is a prototype interface built to accompany a product and operations case
     study. It is not a product of, endorsed by, or affiliated with Nubank or any other
     financial institution, and it uses no logo, wordmark or asset belonging to one.
   </footer>
 </div>
 
 <script>
-const PURPLE = getComputedStyle(document.documentElement).getPropertyValue('--purple').trim();
-const GREEN = getComputedStyle(document.documentElement).getPropertyValue('--green').trim();
-const AMBER = getComputedStyle(document.documentElement).getPropertyValue('--amber').trim();
-const GRID = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim();
-const MUTED = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim();
-const INK2 = getComputedStyle(document.documentElement).getPropertyValue('--ink-2').trim();
-const SURFACE = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim();
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const PURPLE = css('--purple'), GREEN = css('--green'), AMBER = css('--amber');
+const GRID = css('--grid'), MUTED = css('--muted'), INK2 = css('--ink-2'), SURFACE = css('--surface');
 
-const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
-                     'July', 'August', 'September', 'October', 'November', 'December'];
-// Every other artifact writes dates as "29 September". Match that here rather
-// than showing the raw ISO string the data file stores.
-const longDate = iso => {
-  const [, m, d] = iso.split('-').map(Number);
-  return `${d} ${MONTH_NAMES[m - 1]}`;
-};
-const shortDate = iso => {
-  const [, m, d] = iso.split('-').map(Number);
-  return `${d} ${MONTH_NAMES[m - 1].slice(0, 3)}`;
-};
+const MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+const longDate = iso => { const [, m, d] = iso.split('-').map(Number); return `${d} ${MONTH_NAMES[m-1]}`; };
+const shortDate = iso => { const [, m, d] = iso.split('-').map(Number); return `${d} ${MONTH_NAMES[m-1].slice(0,3)}`; };
+const num = n => n.toLocaleString('en-US');
 
 const svgEl = (name, attrs) => {
   const el = document.createElementNS('http://www.w3.org/2000/svg', name);
@@ -262,8 +271,7 @@ function lineChart(target, opts) {
   const W = 1000, H = opts.height || 300;
   const L = 48, R = opts.right || 20, T = 30, B = 40;
   const pw = W - L - R, ph = H - T - B;
-  const svg = svgEl('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img',
-                            'aria-label': opts.label || ''});
+  const svg = svgEl('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': opts.label || ''});
   const lo = opts.min, hi = opts.max;
   const x = i => L + (opts.x.length === 1 ? pw / 2 : i * pw / (opts.x.length - 1));
   const y = v => T + ph * (1 - (v - lo) / (hi - lo));
@@ -275,30 +283,25 @@ function lineChart(target, opts) {
   const ticks = opts.ticks || 4;
   for (let t = 0; t <= ticks; t++) {
     const v = lo + (hi - lo) * t / ticks;
-    svg.appendChild(svgEl('line', {x1: L, y1: y(v), x2: L + pw, y2: y(v),
-      stroke: GRID, 'stroke-width': 1}));
-    const lab = svgEl('text', {x: L - 9, y: y(v) + 4, 'text-anchor': 'end',
-      'font-size': 11, fill: MUTED});
+    svg.appendChild(svgEl('line', {x1: L, y1: y(v), x2: L + pw, y2: y(v), stroke: GRID, 'stroke-width': 1}));
+    const lab = svgEl('text', {x: L - 9, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: MUTED});
     lab.textContent = v.toFixed(0) + '%';
     svg.appendChild(lab);
   }
   opts.x.forEach((label, i) => {
     if (!label) return;
-    const t = svgEl('text', {x: x(i), y: T + ph + 20, 'text-anchor': 'middle',
-      'font-size': 11, fill: MUTED});
+    const t = svgEl('text', {x: x(i), y: T + ph + 20, 'text-anchor': 'middle', 'font-size': 11, fill: MUTED});
     t.textContent = label;
     svg.appendChild(t);
   });
   (opts.series || []).forEach(s => {
     const d = s.values.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
-    svg.appendChild(svgEl('path', {d, fill: 'none', stroke: s.color,
-      'stroke-width': s.width || 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
-    if (s.markers) {
-      s.values.forEach((v, i) => svg.appendChild(svgEl('circle', {cx: x(i), cy: y(v), r: 4,
-        fill: s.color, stroke: SURFACE, 'stroke-width': 2})));
-    }
+    svg.appendChild(svgEl('path', {d, fill: 'none', stroke: s.color, 'stroke-width': s.width || 2.5,
+      'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
+    if (s.markers) s.values.forEach((v, i) => svg.appendChild(svgEl('circle',
+      {cx: x(i), cy: y(v), r: 4, fill: s.color, stroke: SURFACE, 'stroke-width': 2})));
   });
-  if (opts.markAt !== undefined) {
+  if (opts.markAt !== undefined && opts.markAt >= 0) {
     svg.appendChild(svgEl('line', {x1: x(opts.markAt), y1: T, x2: x(opts.markAt), y2: T + ph,
       stroke: INK2, 'stroke-width': 1, 'stroke-dasharray': '3 3'}));
     const t = svgEl('text', {x: x(opts.markAt) - 7, y: T + 12, 'text-anchor': 'end',
@@ -315,111 +318,121 @@ function lineChart(target, opts) {
 
 const LEVERS = [
   {
-    title: 'Card Status',
-    side: 'Shared: merchant, issuer and cardholder',
-    what: 'The card details presented did not match a card the issuer could authorize. That covers details that are wrong or out of date on the merchant side, and cards that are blocked, reissued or closed on the issuer side.',
+    title: 'Card details', side: 'Shared: partner, issuer and cardholder',
+    what: 'The card details presented did not match a card the issuer could authorize. That covers details that are wrong or out of date on the partner side, and cards that are blocked, reissued or closed on the issuer side.',
     points: [
       'On your side: how card details are captured, stored and transmitted, and whether a stored number is refreshed when a card is reissued.',
       'On the issuer side: the card lifecycle itself, including blocks and replacements.',
-      'What your data supports: this reason is the whole of your recent change, and it is not explained by cards simply expiring. Roughly a quarter of first ever charges from a new customer decline this way, and most affected cards keep approving intermittently. Both point away from dead cards and towards the details in the authorization message, though the transaction records alone cannot prove where the mismatch is introduced.'
+      'What your data supports: shown in the review above, generated from your own series rather than written for you.'
     ]
   },
   {
-    title: 'Insufficient Limit',
-    side: 'Issuer and cardholder',
+    title: 'Insufficient limit', side: 'Issuer and cardholder',
     what: 'The cardholder did not have enough available credit at the moment of the charge.',
     points: [
       'On your side: retry timing relative to the billing cycle, and how a failed renewal is communicated to the customer.',
       'On the issuer side: the credit limit and how close the attempt came to fitting inside it.',
-      'What your data supports: this reason has been stable all year and is not part of your recent change. It is also the reason with the least visibility on either side, because nothing currently records how close an attempt came to approving.'
+      'What neither side can see today: nothing currently records how close an attempt came to approving, so this reason cannot be sized on either side. Closing that gap is on the issuer roadmap.'
     ]
   },
   {
-    title: 'Fraud Checks',
-    side: 'Issuer',
+    title: 'Fraud checks', side: 'Issuer',
     what: 'The issuer\'s fraud model declined the transaction.',
     points: [
       'This one sits entirely on the issuer side.',
-      'What your data supports: this reason is a small and stable share of your declines and is not part of your recent change. Whether any individual decline was correct is not something a decline record can answer, on either side.'
+      'Whether any individual decline was correct is not something a decline record can answer, on either side.'
     ]
   }
 ];
 
-function render(data) {
-  document.getElementById('period').textContent = data.period;
-  document.getElementById('attempts').textContent =
-    data.summary.attempts.toLocaleString('en-US') + ' authorization attempts';
+let DATA = null;
 
-  const s = data.summary;
+function render(id) {
+  const d = DATA.partners[id];
+  document.getElementById('period').textContent = DATA.period;
+  document.getElementById('attempts').textContent = num(d.attempts) + ' authorization attempts';
+
+  const flagged = d.insights.filter(i => i.severity === 'attention').length;
+  document.getElementById('review-when').textContent = flagged
+    ? `Generated automatically from your ${num(d.attempts)} attempts. ${flagged} item${flagged > 1 ? 's' : ''} flagged for attention.`
+    : `Generated automatically from your ${num(d.attempts)} attempts. Nothing flagged for attention this period.`;
+
+  document.getElementById('cards').innerHTML = d.insights.map(i => `
+    <div class="card ${i.severity}">
+      <div class="tag">${i.severity === 'attention' ? 'Needs attention' : i.severity === 'good' ? 'Healthy' : 'For information'}</div>
+      <h3>${i.title}</h3>
+      <p>${i.body}</p>
+      <div class="do"><b>What to check:</b> ${i.action}</div>
+    </div>`).join('');
+
+  document.getElementById('overview-title').textContent = d.break
+    ? 'Your approval rate moved outside its usual range this period'
+    : 'Your approval rate held its usual range this period';
+
   document.getElementById('overview-stats').innerHTML = [
-    ['', s.approvalRate + '%', 'Approval rate, full year',
-      s.attempts.toLocaleString('en-US') + ' attempts'],
-    ['down', s.approvalRatePost + '%', 'October to December',
-      'against ' + s.approvalRatePre + '% January to September'],
-    ['', s.customers.toLocaleString('en-US'), 'Cardholders billed',
-      'across ' + s.attempts.toLocaleString('en-US') + ' attempts'],
-    ['', 'R$ ' + Math.round(s.approvedValue).toLocaleString('en-US'), 'Approved value',
-      'on ' + s.priceTiers.length + ' price points, R$ ' + s.priceTiers[0].toFixed(2)
-      + ' to R$ ' + s.priceTiers[s.priceTiers.length - 1].toFixed(2)],
+    ['', d.approvalRate + '%', 'Approval rate, full year', num(d.attempts) + ' attempts'],
+    [d.approvalRatePost < d.approvalRatePre ? 'down' : '', d.approvalRatePost + '%',
+      'October to December', 'against ' + d.approvalRatePre + '% January to September'],
+    ['', num(d.customers), 'Cardholders billed', 'median ticket R$ ' + d.medianAmount.toFixed(2)],
+    ['', 'R$ ' + num(Math.round(d.approvedValue)), 'Approved value', 'in the period'],
   ].map(([cls, v, l, n]) =>
-    `<div class="stat"><div class="v ${cls}">${v}</div><div class="l">${l}</div><div class="n">${n}</div></div>`
-  ).join('');
+    `<div class="stat"><div class="v ${cls}">${v}</div><div class="l">${l}</div><div class="n">${n}</div></div>`).join('');
 
+  const rates = d.monthly.map(m => m.approvalRate);
   lineChart(document.getElementById('chart-approval'), {
-    x: data.monthly.map(m => m.month),
-    series: [{values: data.monthly.map(m => m.approvalRate), color: PURPLE, markers: true}],
-    min: 40, max: 80, ticks: 4, height: 300,
-    axisTitle: 'Approval rate, monthly', markAt: 9, markLabel: 'change begins',
-    label: 'Monthly approval rate for merchant M1 across 2025'
+    x: d.monthly.map(m => m.month),
+    series: [{values: rates, color: PURPLE, markers: true}],
+    min: Math.max(0, Math.floor((Math.min(...rates) - 8) / 10) * 10),
+    max: Math.min(100, Math.ceil((Math.max(...rates) + 8) / 10) * 10),
+    ticks: 4, height: 300, axisTitle: 'Approval rate, monthly',
+    markAt: d.break ? 9 : -1, markLabel: 'change begins',
+    label: 'Monthly approval rate across 2025'
   });
   document.getElementById('cap-approval').textContent =
     'Approved transactions as a share of attempts, by month. Monthly attempts range from '
-    + Math.min(...data.monthly.map(m => m.attempts)).toLocaleString('en-US') + ' to '
-    + Math.max(...data.monthly.map(m => m.attempts)).toLocaleString('en-US')
+    + num(Math.min(...d.monthly.map(m => m.attempts))) + ' to '
+    + num(Math.max(...d.monthly.map(m => m.attempts)))
     + '. Source: your authorization records, full year 2025.';
 
-  const breakIndex = data.weekly.findIndex(w => w.week === s.breakWeek);
+  const wk = d.weekly.map(w => w.cardStatus);
+  const breakIndex = d.break ? d.weekly.findIndex(w => w.week === d.break.week) : -1;
   lineChart(document.getElementById('chart-weekly'), {
-    x: data.weekly.map((w, i) => i % 6 === 0 ? shortDate(w.week) : ''),
-    series: [{values: data.weekly.map(w => w.cardStatus), color: PURPLE, width: 2.2}],
-    min: 10, max: 50, ticks: 4, height: 300,
-    band: [s.baselineLow, s.baselineHigh],
-    axisTitle: 'Card status declines per 100 attempts, weekly',
-    markAt: breakIndex, markLabel: 'week of ' + longDate(s.breakWeek),
-    label: 'Weekly card status decline rate showing the change in late September'
+    x: d.weekly.map((w, i) => i % 6 === 0 ? shortDate(w.week) : ''),
+    series: [{values: wk, color: PURPLE, width: 2.2}],
+    min: Math.max(0, Math.floor((Math.min(...wk) - 5) / 10) * 10),
+    max: Math.min(100, Math.ceil((Math.max(...wk) + 5) / 10) * 10),
+    ticks: 4, height: 300,
+    band: d.break ? [d.break.priorLow, d.break.priorHigh] : null,
+    axisTitle: 'Card detail declines per 100 attempts, weekly',
+    markAt: breakIndex, markLabel: d.break ? 'week of ' + longDate(d.break.week) : '',
+    label: 'Weekly card detail decline rate'
   });
-  document.getElementById('cap-weekly').textContent =
-    'Shaded band is the range this rate held before the change, ' + s.baselineLow + '% to '
-    + s.baselineHigh + '%. Weeks with fewer than 100 attempts are excluded. '
-    + 'Source: your authorization records, full year 2025.';
+  document.getElementById('cap-weekly').textContent = d.break
+    ? `Shaded band is the range this rate held before the change, ${d.break.priorLow}% to ${d.break.priorHigh}%. Weeks with fewer than 20 attempts are excluded. Source: your authorization records, full year 2025.`
+    : 'Weeks with fewer than 20 attempts are excluded. No decline reason left its usual range this period. Source: your authorization records, full year 2025.';
 
-  document.getElementById('reason-rows').innerHTML = data.reasons.map(r => {
-    const moved = Math.abs(r.change) >= 1;
-    const sign = r.change > 0 ? '+' : '';
-    return `<tr>
+  document.getElementById('reason-rows').innerHTML = d.reasons.map(r => `
+    <tr>
       <td><strong>${r.reason}</strong></td>
-      <td class="num">${r.denials.toLocaleString('en-US')}</td>
-      <td class="num">${r.shareOfDenials}%</td>
-      <td class="num">${r.ratePre}</td>
-      <td class="num">${r.ratePost}</td>
-      <td class="num ${moved ? 'up' : 'flat'}">${sign}${r.change} pp</td>
-    </tr>`;
-  }).join('');
+      <td class="num">${num(r.declines)}</td>
+      <td class="num">${r.shareOfDeclines.toFixed(1)}%</td>
+      <td class="num">${r.rate.toFixed(1)}</td>
+    </tr>`).join('');
 
   lineChart(document.getElementById('chart-reasons'), {
-    x: data.monthly.map(m => m.month),
+    x: d.monthly.map(m => m.month),
     series: [
-      {values: data.monthly.map(m => m.cardStatus), color: PURPLE, markers: true},
-      {values: data.monthly.map(m => m.limitExceeded), color: GREEN, markers: true},
-      {values: data.monthly.map(m => m.fraudRisk), color: AMBER, markers: true},
+      {values: d.monthly.map(m => m.cardStatus), color: PURPLE, markers: true},
+      {values: d.monthly.map(m => m.limitExceeded), color: GREEN, markers: true},
+      {values: d.monthly.map(m => m.fraudRisk), color: AMBER, markers: true},
     ],
-    min: 0, max: 45, ticks: 3, height: 300,
-    axisTitle: 'Declines per 100 attempts, monthly',
+    min: 0,
+    max: Math.min(100, Math.ceil((Math.max(...d.monthly.map(m => Math.max(m.cardStatus, m.limitExceeded, m.fraudRisk))) + 6) / 5) * 5),
+    ticks: 3, height: 300, axisTitle: 'Declines per 100 attempts, monthly',
     label: 'Monthly decline rate by reason'
   });
   document.getElementById('cap-reasons').textContent =
-    'Each reason as declines per 100 attempts, by month. Card status is the only one that moves. '
-    + 'Source: your authorization records, full year 2025.';
+    'Each reason as declines per 100 attempts, by month. Source: your authorization records, full year 2025.';
 
   document.getElementById('levers').innerHTML = LEVERS.map(l => `
     <div class="lever">
@@ -427,6 +440,14 @@ function render(data) {
       <p>${l.what}</p>
       <ul>${l.points.map(p => `<li>${p}</li>`).join('')}</ul>
     </div>`).join('');
+
+  document.getElementById('method-body').textContent =
+    `Every week, each partner's own series is checked against three rules: whether any decline `
+    + `reason has left the range it held previously and stayed outside it for at least `
+    + `${DATA.rules.breakMinWeeks} weeks, whether one reason sits more than `
+    + `${DATA.rules.concentrationPp} points above the next, and whether the approval rate has `
+    + `moved more than ${DATA.rules.movementPp} points between periods. Anything that trips a `
+    + `rule is written up with its own figures, its denominator and its confidence interval.`;
 }
 
 const tabs = [...document.querySelectorAll('nav.tabs button')];
@@ -440,10 +461,17 @@ tabs.forEach(tab => tab.addEventListener('click', () => {
 
 fetch('data.json')
   .then(r => r.json())
-  .then(render)
+  .then(payload => {
+    DATA = payload;
+    const select = document.getElementById('partner');
+    select.innerHTML = Object.keys(DATA.partners)
+      .map(id => `<option value="${id}">${id} partner</option>`).join('');
+    select.addEventListener('change', e => render(e.target.value));
+    render(select.value);
+  })
   .catch(() => {
     document.querySelector('.panelwrap').innerHTML =
-      '<h2>Could not load the demonstration data</h2>' +
+      '<h2 class="panel-title">Could not load the demonstration data</h2>' +
       '<p class="sub">This page reads data.json from the same directory. ' +
       'Serve the folder over HTTP rather than opening the file directly.</p>';
   });

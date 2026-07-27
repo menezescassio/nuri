@@ -1,419 +1,2099 @@
 {
-  "merchant": "M1",
   "period": "1 January to 31 December 2025",
   "generatedBy": "analysis/17_portal_data.py in the nubank-authorization-case repository",
-  "summary": {
-    "attempts": 15982,
-    "approvalRate": 64.7,
-    "approvalRatePre": 68.1,
-    "approvalRatePost": 54.5,
-    "customers": 3341,
-    "approvedValue": 424960.6,
-    "priceTiers": [
-      20.9,
-      44.9,
-      59.9
-    ],
-    "baselineLow": 17.3,
-    "baselineHigh": 28.2,
-    "breakWeek": "2025-09-29"
+  "rules": {
+    "breakMinWeeks": 4,
+    "concentrationPp": 10.0,
+    "movementPp": 5.0
   },
-  "monthly": [
-    {
-      "month": "Jan",
-      "attempts": 1329,
-      "approvalRate": 68.6,
-      "cardStatus": 23.3,
-      "limitExceeded": 7.2,
-      "fraudRisk": 0.9,
-      "approvedValue": 37261.8
+  "partners": {
+    "M1": {
+      "id": "M1",
+      "attempts": 15982,
+      "approvalRate": 64.7,
+      "approvalRatePre": 68.1,
+      "approvalRatePost": 54.5,
+      "customers": 3341,
+      "approvedValue": 424960.6,
+      "medianAmount": 44.9,
+      "monthly": [
+        {
+          "month": "Jan",
+          "attempts": 1329,
+          "approvalRate": 68.6,
+          "cardStatus": 23.3,
+          "limitExceeded": 7.2,
+          "fraudRisk": 0.9,
+          "approvedValue": 37261.8
+        },
+        {
+          "month": "Feb",
+          "attempts": 1311,
+          "approvalRate": 66.9,
+          "cardStatus": 24.7,
+          "limitExceeded": 7.3,
+          "fraudRisk": 1.1,
+          "approvedValue": 35879.3
+        },
+        {
+          "month": "Mar",
+          "attempts": 1339,
+          "approvalRate": 66.2,
+          "cardStatus": 24.0,
+          "limitExceeded": 8.9,
+          "fraudRisk": 0.8,
+          "approvedValue": 36511.3
+        },
+        {
+          "month": "Apr",
+          "attempts": 1308,
+          "approvalRate": 68.9,
+          "cardStatus": 24.4,
+          "limitExceeded": 5.7,
+          "fraudRisk": 1.0,
+          "approvedValue": 36770.9
+        },
+        {
+          "month": "May",
+          "attempts": 1296,
+          "approvalRate": 70.1,
+          "cardStatus": 23.4,
+          "limitExceeded": 5.7,
+          "fraudRisk": 0.8,
+          "approvedValue": 37499.1
+        },
+        {
+          "month": "Jun",
+          "attempts": 1317,
+          "approvalRate": 69.1,
+          "cardStatus": 23.6,
+          "limitExceeded": 6.1,
+          "fraudRisk": 1.2,
+          "approvedValue": 37247.0
+        },
+        {
+          "month": "Jul",
+          "attempts": 1349,
+          "approvalRate": 69.0,
+          "cardStatus": 24.1,
+          "limitExceeded": 6.1,
+          "fraudRisk": 0.8,
+          "approvedValue": 38075.9
+        },
+        {
+          "month": "Aug",
+          "attempts": 1336,
+          "approvalRate": 67.0,
+          "cardStatus": 23.1,
+          "limitExceeded": 9.1,
+          "fraudRisk": 0.8,
+          "approvedValue": 36807.5
+        },
+        {
+          "month": "Sep",
+          "attempts": 1345,
+          "approvalRate": 67.1,
+          "cardStatus": 24.2,
+          "limitExceeded": 7.5,
+          "fraudRisk": 1.2,
+          "approvedValue": 37193.8
+        },
+        {
+          "month": "Oct",
+          "attempts": 1372,
+          "approvalRate": 58.5,
+          "cardStatus": 32.8,
+          "limitExceeded": 7.5,
+          "fraudRisk": 1.2,
+          "approvedValue": 33357.7
+        },
+        {
+          "month": "Nov",
+          "attempts": 1345,
+          "approvalRate": 52.8,
+          "cardStatus": 39.0,
+          "limitExceeded": 7.4,
+          "fraudRisk": 0.8,
+          "approvedValue": 29608.0
+        },
+        {
+          "month": "Dec",
+          "attempts": 1335,
+          "approvalRate": 52.2,
+          "cardStatus": 41.0,
+          "limitExceeded": 5.6,
+          "fraudRisk": 1.1,
+          "approvedValue": 28748.3
+        }
+      ],
+      "weekly": [
+        {
+          "week": "2024-12-30",
+          "attempts": 216,
+          "cardStatus": 22.7
+        },
+        {
+          "week": "2025-01-06",
+          "attempts": 331,
+          "cardStatus": 22.4
+        },
+        {
+          "week": "2025-01-13",
+          "attempts": 327,
+          "cardStatus": 28.1
+        },
+        {
+          "week": "2025-01-20",
+          "attempts": 342,
+          "cardStatus": 19.9
+        },
+        {
+          "week": "2025-01-27",
+          "attempts": 200,
+          "cardStatus": 22.5
+        },
+        {
+          "week": "2025-02-03",
+          "attempts": 309,
+          "cardStatus": 25.2
+        },
+        {
+          "week": "2025-02-10",
+          "attempts": 332,
+          "cardStatus": 25.6
+        },
+        {
+          "week": "2025-02-17",
+          "attempts": 336,
+          "cardStatus": 27.1
+        },
+        {
+          "week": "2025-02-24",
+          "attempts": 330,
+          "cardStatus": 22.4
+        },
+        {
+          "week": "2025-03-03",
+          "attempts": 308,
+          "cardStatus": 19.2
+        },
+        {
+          "week": "2025-03-10",
+          "attempts": 357,
+          "cardStatus": 23.2
+        },
+        {
+          "week": "2025-03-17",
+          "attempts": 325,
+          "cardStatus": 27.4
+        },
+        {
+          "week": "2025-03-24",
+          "attempts": 259,
+          "cardStatus": 25.5
+        },
+        {
+          "week": "2025-03-31",
+          "attempts": 267,
+          "cardStatus": 22.1
+        },
+        {
+          "week": "2025-04-07",
+          "attempts": 320,
+          "cardStatus": 22.5
+        },
+        {
+          "week": "2025-04-14",
+          "attempts": 321,
+          "cardStatus": 27.4
+        },
+        {
+          "week": "2025-04-21",
+          "attempts": 343,
+          "cardStatus": 23.6
+        },
+        {
+          "week": "2025-04-28",
+          "attempts": 234,
+          "cardStatus": 28.2
+        },
+        {
+          "week": "2025-05-05",
+          "attempts": 330,
+          "cardStatus": 17.3
+        },
+        {
+          "week": "2025-05-12",
+          "attempts": 318,
+          "cardStatus": 23.9
+        },
+        {
+          "week": "2025-05-19",
+          "attempts": 320,
+          "cardStatus": 25.9
+        },
+        {
+          "week": "2025-05-26",
+          "attempts": 197,
+          "cardStatus": 26.9
+        },
+        {
+          "week": "2025-06-02",
+          "attempts": 328,
+          "cardStatus": 23.2
+        },
+        {
+          "week": "2025-06-09",
+          "attempts": 351,
+          "cardStatus": 23.6
+        },
+        {
+          "week": "2025-06-16",
+          "attempts": 314,
+          "cardStatus": 25.8
+        },
+        {
+          "week": "2025-06-23",
+          "attempts": 275,
+          "cardStatus": 20.0
+        },
+        {
+          "week": "2025-06-30",
+          "attempts": 277,
+          "cardStatus": 24.5
+        },
+        {
+          "week": "2025-07-07",
+          "attempts": 328,
+          "cardStatus": 22.6
+        },
+        {
+          "week": "2025-07-14",
+          "attempts": 340,
+          "cardStatus": 25.9
+        },
+        {
+          "week": "2025-07-21",
+          "attempts": 347,
+          "cardStatus": 24.8
+        },
+        {
+          "week": "2025-07-28",
+          "attempts": 214,
+          "cardStatus": 19.6
+        },
+        {
+          "week": "2025-08-04",
+          "attempts": 309,
+          "cardStatus": 23.9
+        },
+        {
+          "week": "2025-08-11",
+          "attempts": 351,
+          "cardStatus": 23.1
+        },
+        {
+          "week": "2025-08-18",
+          "attempts": 311,
+          "cardStatus": 24.8
+        },
+        {
+          "week": "2025-08-25",
+          "attempts": 218,
+          "cardStatus": 22.5
+        },
+        {
+          "week": "2025-09-01",
+          "attempts": 325,
+          "cardStatus": 24.9
+        },
+        {
+          "week": "2025-09-08",
+          "attempts": 342,
+          "cardStatus": 23.7
+        },
+        {
+          "week": "2025-09-15",
+          "attempts": 328,
+          "cardStatus": 25.9
+        },
+        {
+          "week": "2025-09-22",
+          "attempts": 342,
+          "cardStatus": 22.2
+        },
+        {
+          "week": "2025-09-29",
+          "attempts": 232,
+          "cardStatus": 36.6
+        },
+        {
+          "week": "2025-10-06",
+          "attempts": 342,
+          "cardStatus": 32.2
+        },
+        {
+          "week": "2025-10-13",
+          "attempts": 342,
+          "cardStatus": 30.4
+        },
+        {
+          "week": "2025-10-20",
+          "attempts": 326,
+          "cardStatus": 32.5
+        },
+        {
+          "week": "2025-10-27",
+          "attempts": 223,
+          "cardStatus": 37.2
+        },
+        {
+          "week": "2025-11-03",
+          "attempts": 305,
+          "cardStatus": 40.7
+        },
+        {
+          "week": "2025-11-10",
+          "attempts": 380,
+          "cardStatus": 37.4
+        },
+        {
+          "week": "2025-11-17",
+          "attempts": 307,
+          "cardStatus": 38.4
+        },
+        {
+          "week": "2025-11-24",
+          "attempts": 268,
+          "cardStatus": 39.6
+        },
+        {
+          "week": "2025-12-01",
+          "attempts": 300,
+          "cardStatus": 36.3
+        },
+        {
+          "week": "2025-12-08",
+          "attempts": 359,
+          "cardStatus": 40.1
+        },
+        {
+          "week": "2025-12-15",
+          "attempts": 325,
+          "cardStatus": 41.5
+        },
+        {
+          "week": "2025-12-22",
+          "attempts": 325,
+          "cardStatus": 44.0
+        }
+      ],
+      "reasons": [
+        {
+          "reason": "Card details",
+          "declines": 4371,
+          "shareOfDeclines": 77.4,
+          "rate": 27.3
+        },
+        {
+          "reason": "Insufficient limit",
+          "declines": 1121,
+          "shareOfDeclines": 19.8,
+          "rate": 7.0
+        },
+        {
+          "reason": "Fraud checks",
+          "declines": 156,
+          "shareOfDeclines": 2.8,
+          "rate": 1.0
+        }
+      ],
+      "break": {
+        "week": "2025-09-29",
+        "priorLow": 17.3,
+        "priorHigh": 28.2,
+        "weeksSince": 13,
+        "sinceMean": 37.5
+      },
+      "insights": [
+        {
+          "severity": "attention",
+          "title": "Card detail declines left their usual range in the week of 29 September",
+          "body": "For the weeks before that, this rate sat between 17.3% and 28.2%. It has been above that range for 13 weeks since, averaging 37.5%. The current period rate is 37.6%, with a 95% interval of 36.1% to 39.1% on 4,052 attempts.",
+          "action": "Check whether anything changed in how card details are captured, stored, tokenized or transmitted in that week. A gateway migration, a change of processor, a vault or certificate rotation, a billing platform update."
+        },
+        {
+          "severity": "info",
+          "title": "Card details accounts for 77.4% of your declines",
+          "body": "It fires on 27.3% of attempts, against 7.0% for the next largest reason. Your other decline reasons are not what is holding your approval rate down.",
+          "action": "The levers tab shows which side of the transaction can act on this reason."
+        },
+        {
+          "severity": "attention",
+          "title": "Your approval rate has fallen 13.6 points this period",
+          "body": "68.1% across 11,930 attempts before October, 54.5% across 4,052 attempts since. Attempt volume over the same window went from 1326 to 1351 a month, so this is conversion rather than demand.",
+          "action": "Approved value implications are in the summary above."
+        }
+      ]
     },
-    {
-      "month": "Feb",
-      "attempts": 1311,
-      "approvalRate": 66.9,
-      "cardStatus": 24.7,
-      "limitExceeded": 7.3,
-      "fraudRisk": 1.1,
-      "approvedValue": 35879.3
+    "M2": {
+      "id": "M2",
+      "attempts": 1960,
+      "approvalRate": 76.6,
+      "approvalRatePre": 76.0,
+      "approvalRatePost": 78.1,
+      "customers": 1762,
+      "approvedValue": 1921845.2,
+      "medianAmount": 849.21,
+      "monthly": [
+        {
+          "month": "Jan",
+          "attempts": 133,
+          "approvalRate": 79.7,
+          "cardStatus": 6.0,
+          "limitExceeded": 12.8,
+          "fraudRisk": 1.5,
+          "approvedValue": 118015.85
+        },
+        {
+          "month": "Feb",
+          "attempts": 123,
+          "approvalRate": 78.0,
+          "cardStatus": 4.9,
+          "limitExceeded": 12.2,
+          "fraudRisk": 4.9,
+          "approvedValue": 111878.25
+        },
+        {
+          "month": "Mar",
+          "attempts": 143,
+          "approvalRate": 72.0,
+          "cardStatus": 4.2,
+          "limitExceeded": 16.8,
+          "fraudRisk": 7.0,
+          "approvedValue": 133776.76
+        },
+        {
+          "month": "Apr",
+          "attempts": 141,
+          "approvalRate": 70.9,
+          "cardStatus": 7.8,
+          "limitExceeded": 16.3,
+          "fraudRisk": 5.0,
+          "approvedValue": 123374.4
+        },
+        {
+          "month": "May",
+          "attempts": 144,
+          "approvalRate": 73.6,
+          "cardStatus": 6.2,
+          "limitExceeded": 16.7,
+          "fraudRisk": 3.5,
+          "approvedValue": 131078.7
+        },
+        {
+          "month": "Jun",
+          "attempts": 175,
+          "approvalRate": 78.9,
+          "cardStatus": 4.0,
+          "limitExceeded": 11.4,
+          "fraudRisk": 5.7,
+          "approvedValue": 161337.33
+        },
+        {
+          "month": "Jul",
+          "attempts": 187,
+          "approvalRate": 77.5,
+          "cardStatus": 4.8,
+          "limitExceeded": 13.4,
+          "fraudRisk": 4.3,
+          "approvedValue": 199304.89
+        },
+        {
+          "month": "Aug",
+          "attempts": 154,
+          "approvalRate": 71.4,
+          "cardStatus": 6.5,
+          "limitExceeded": 18.2,
+          "fraudRisk": 3.9,
+          "approvedValue": 159909.83
+        },
+        {
+          "month": "Sep",
+          "attempts": 176,
+          "approvalRate": 80.7,
+          "cardStatus": 2.8,
+          "limitExceeded": 12.5,
+          "fraudRisk": 4.0,
+          "approvedValue": 183871.46
+        },
+        {
+          "month": "Oct",
+          "attempts": 206,
+          "approvalRate": 77.7,
+          "cardStatus": 4.4,
+          "limitExceeded": 12.6,
+          "fraudRisk": 5.3,
+          "approvedValue": 180617.58
+        },
+        {
+          "month": "Nov",
+          "attempts": 185,
+          "approvalRate": 75.7,
+          "cardStatus": 5.4,
+          "limitExceeded": 13.5,
+          "fraudRisk": 5.4,
+          "approvedValue": 203856.94
+        },
+        {
+          "month": "Dec",
+          "attempts": 193,
+          "approvalRate": 80.8,
+          "cardStatus": 5.2,
+          "limitExceeded": 11.4,
+          "fraudRisk": 2.6,
+          "approvedValue": 214823.21
+        }
+      ],
+      "weekly": [
+        {
+          "week": "2024-12-30",
+          "attempts": 21,
+          "cardStatus": 4.8
+        },
+        {
+          "week": "2025-01-06",
+          "attempts": 39,
+          "cardStatus": 5.1
+        },
+        {
+          "week": "2025-01-13",
+          "attempts": 24,
+          "cardStatus": 4.2
+        },
+        {
+          "week": "2025-01-20",
+          "attempts": 22,
+          "cardStatus": 9.1
+        },
+        {
+          "week": "2025-01-27",
+          "attempts": 33,
+          "cardStatus": 6.1
+        },
+        {
+          "week": "2025-02-03",
+          "attempts": 40,
+          "cardStatus": 5.0
+        },
+        {
+          "week": "2025-02-10",
+          "attempts": 19,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-02-17",
+          "attempts": 37,
+          "cardStatus": 5.4
+        },
+        {
+          "week": "2025-02-24",
+          "attempts": 29,
+          "cardStatus": 6.9
+        },
+        {
+          "week": "2025-03-03",
+          "attempts": 38,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-03-10",
+          "attempts": 25,
+          "cardStatus": 4.0
+        },
+        {
+          "week": "2025-03-17",
+          "attempts": 35,
+          "cardStatus": 11.4
+        },
+        {
+          "week": "2025-03-24",
+          "attempts": 31,
+          "cardStatus": 3.2
+        },
+        {
+          "week": "2025-03-31",
+          "attempts": 35,
+          "cardStatus": 8.6
+        },
+        {
+          "week": "2025-04-07",
+          "attempts": 29,
+          "cardStatus": 6.9
+        },
+        {
+          "week": "2025-04-14",
+          "attempts": 36,
+          "cardStatus": 11.1
+        },
+        {
+          "week": "2025-04-21",
+          "attempts": 33,
+          "cardStatus": 3.0
+        },
+        {
+          "week": "2025-04-28",
+          "attempts": 39,
+          "cardStatus": 12.8
+        },
+        {
+          "week": "2025-05-05",
+          "attempts": 30,
+          "cardStatus": 3.3
+        },
+        {
+          "week": "2025-05-12",
+          "attempts": 26,
+          "cardStatus": 3.8
+        },
+        {
+          "week": "2025-05-19",
+          "attempts": 32,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-05-26",
+          "attempts": 39,
+          "cardStatus": 5.1
+        },
+        {
+          "week": "2025-06-02",
+          "attempts": 47,
+          "cardStatus": 6.4
+        },
+        {
+          "week": "2025-06-09",
+          "attempts": 26,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-06-16",
+          "attempts": 34,
+          "cardStatus": 2.9
+        },
+        {
+          "week": "2025-06-23",
+          "attempts": 46,
+          "cardStatus": 6.5
+        },
+        {
+          "week": "2025-06-30",
+          "attempts": 49,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-07-07",
+          "attempts": 46,
+          "cardStatus": 4.3
+        },
+        {
+          "week": "2025-07-14",
+          "attempts": 41,
+          "cardStatus": 4.9
+        },
+        {
+          "week": "2025-07-21",
+          "attempts": 40,
+          "cardStatus": 5.0
+        },
+        {
+          "week": "2025-07-28",
+          "attempts": 40,
+          "cardStatus": 10.0
+        },
+        {
+          "week": "2025-08-04",
+          "attempts": 34,
+          "cardStatus": 5.9
+        },
+        {
+          "week": "2025-08-11",
+          "attempts": 39,
+          "cardStatus": 2.6
+        },
+        {
+          "week": "2025-08-18",
+          "attempts": 28,
+          "cardStatus": 3.6
+        },
+        {
+          "week": "2025-08-25",
+          "attempts": 38,
+          "cardStatus": 13.2
+        },
+        {
+          "week": "2025-09-01",
+          "attempts": 47,
+          "cardStatus": 2.1
+        },
+        {
+          "week": "2025-09-08",
+          "attempts": 32,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-09-15",
+          "attempts": 39,
+          "cardStatus": 2.6
+        },
+        {
+          "week": "2025-09-22",
+          "attempts": 45,
+          "cardStatus": 4.4
+        },
+        {
+          "week": "2025-09-29",
+          "attempts": 52,
+          "cardStatus": 7.7
+        },
+        {
+          "week": "2025-10-06",
+          "attempts": 43,
+          "cardStatus": 4.7
+        },
+        {
+          "week": "2025-10-13",
+          "attempts": 46,
+          "cardStatus": 2.2
+        },
+        {
+          "week": "2025-10-20",
+          "attempts": 32,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-10-27",
+          "attempts": 56,
+          "cardStatus": 3.6
+        },
+        {
+          "week": "2025-11-03",
+          "attempts": 41,
+          "cardStatus": 4.9
+        },
+        {
+          "week": "2025-11-10",
+          "attempts": 41,
+          "cardStatus": 4.9
+        },
+        {
+          "week": "2025-11-17",
+          "attempts": 43,
+          "cardStatus": 4.7
+        },
+        {
+          "week": "2025-11-24",
+          "attempts": 50,
+          "cardStatus": 6.0
+        },
+        {
+          "week": "2025-12-01",
+          "attempts": 45,
+          "cardStatus": 4.4
+        },
+        {
+          "week": "2025-12-08",
+          "attempts": 36,
+          "cardStatus": 2.8
+        },
+        {
+          "week": "2025-12-15",
+          "attempts": 39,
+          "cardStatus": 10.3
+        },
+        {
+          "week": "2025-12-22",
+          "attempts": 45,
+          "cardStatus": 4.4
+        },
+        {
+          "week": "2025-12-29",
+          "attempts": 28,
+          "cardStatus": 3.6
+        }
+      ],
+      "reasons": [
+        {
+          "reason": "Card details",
+          "declines": 100,
+          "shareOfDeclines": 21.8,
+          "rate": 5.1
+        },
+        {
+          "reason": "Insufficient limit",
+          "declines": 271,
+          "shareOfDeclines": 59.2,
+          "rate": 13.8
+        },
+        {
+          "reason": "Fraud checks",
+          "declines": 87,
+          "shareOfDeclines": 19.0,
+          "rate": 4.4
+        }
+      ],
+      "break": null,
+      "insights": [
+        {
+          "severity": "good",
+          "title": "Nothing in your data crossed an alert threshold this period",
+          "body": "Approval rate 76.6% across 1,960 attempts, with no decline reason leaving its usual range.",
+          "action": "The tabs below carry the full breakdown."
+        }
+      ]
     },
-    {
-      "month": "Mar",
-      "attempts": 1339,
-      "approvalRate": 66.2,
-      "cardStatus": 24.0,
-      "limitExceeded": 8.9,
-      "fraudRisk": 0.8,
-      "approvedValue": 36511.3
+    "M3": {
+      "id": "M3",
+      "attempts": 3992,
+      "approvalRate": 79.7,
+      "approvalRatePre": 79.8,
+      "approvalRatePost": 79.5,
+      "customers": 3308,
+      "approvedValue": 595516.08,
+      "medianAmount": 196.06,
+      "monthly": [
+        {
+          "month": "Jan",
+          "attempts": 259,
+          "approvalRate": 84.9,
+          "cardStatus": 6.9,
+          "limitExceeded": 6.2,
+          "fraudRisk": 1.9,
+          "approvedValue": 40941.77
+        },
+        {
+          "month": "Feb",
+          "attempts": 304,
+          "approvalRate": 77.0,
+          "cardStatus": 6.9,
+          "limitExceeded": 10.2,
+          "fraudRisk": 5.9,
+          "approvedValue": 42458.05
+        },
+        {
+          "month": "Mar",
+          "attempts": 327,
+          "approvalRate": 79.5,
+          "cardStatus": 6.7,
+          "limitExceeded": 8.6,
+          "fraudRisk": 5.2,
+          "approvedValue": 47502.01
+        },
+        {
+          "month": "Apr",
+          "attempts": 322,
+          "approvalRate": 76.1,
+          "cardStatus": 5.3,
+          "limitExceeded": 12.4,
+          "fraudRisk": 6.2,
+          "approvedValue": 47280.92
+        },
+        {
+          "month": "May",
+          "attempts": 313,
+          "approvalRate": 78.3,
+          "cardStatus": 4.8,
+          "limitExceeded": 12.8,
+          "fraudRisk": 4.2,
+          "approvedValue": 43958.38
+        },
+        {
+          "month": "Jun",
+          "attempts": 313,
+          "approvalRate": 79.2,
+          "cardStatus": 6.1,
+          "limitExceeded": 12.1,
+          "fraudRisk": 2.6,
+          "approvedValue": 46501.35
+        },
+        {
+          "month": "Jul",
+          "attempts": 351,
+          "approvalRate": 82.1,
+          "cardStatus": 3.7,
+          "limitExceeded": 11.7,
+          "fraudRisk": 2.6,
+          "approvedValue": 55916.37
+        },
+        {
+          "month": "Aug",
+          "attempts": 336,
+          "approvalRate": 79.8,
+          "cardStatus": 6.5,
+          "limitExceeded": 10.1,
+          "fraudRisk": 3.6,
+          "approvedValue": 51115.95
+        },
+        {
+          "month": "Sep",
+          "attempts": 357,
+          "approvalRate": 82.1,
+          "cardStatus": 3.4,
+          "limitExceeded": 10.1,
+          "fraudRisk": 4.5,
+          "approvedValue": 54040.65
+        },
+        {
+          "month": "Oct",
+          "attempts": 348,
+          "approvalRate": 79.9,
+          "cardStatus": 4.9,
+          "limitExceeded": 11.8,
+          "fraudRisk": 3.4,
+          "approvedValue": 53435.57
+        },
+        {
+          "month": "Nov",
+          "attempts": 365,
+          "approvalRate": 80.0,
+          "cardStatus": 4.7,
+          "limitExceeded": 13.4,
+          "fraudRisk": 1.9,
+          "approvedValue": 53575.38
+        },
+        {
+          "month": "Dec",
+          "attempts": 397,
+          "approvalRate": 78.6,
+          "cardStatus": 4.3,
+          "limitExceeded": 12.6,
+          "fraudRisk": 4.5,
+          "approvedValue": 58789.68
+        }
+      ],
+      "weekly": [
+        {
+          "week": "2024-12-30",
+          "attempts": 51,
+          "cardStatus": 9.8
+        },
+        {
+          "week": "2025-01-06",
+          "attempts": 45,
+          "cardStatus": 6.7
+        },
+        {
+          "week": "2025-01-13",
+          "attempts": 48,
+          "cardStatus": 2.1
+        },
+        {
+          "week": "2025-01-20",
+          "attempts": 69,
+          "cardStatus": 11.6
+        },
+        {
+          "week": "2025-01-27",
+          "attempts": 70,
+          "cardStatus": 4.3
+        },
+        {
+          "week": "2025-02-03",
+          "attempts": 75,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-02-10",
+          "attempts": 66,
+          "cardStatus": 3.0
+        },
+        {
+          "week": "2025-02-17",
+          "attempts": 81,
+          "cardStatus": 11.1
+        },
+        {
+          "week": "2025-02-24",
+          "attempts": 78,
+          "cardStatus": 7.7
+        },
+        {
+          "week": "2025-03-03",
+          "attempts": 83,
+          "cardStatus": 10.8
+        },
+        {
+          "week": "2025-03-10",
+          "attempts": 73,
+          "cardStatus": 5.5
+        },
+        {
+          "week": "2025-03-17",
+          "attempts": 83,
+          "cardStatus": 1.2
+        },
+        {
+          "week": "2025-03-24",
+          "attempts": 56,
+          "cardStatus": 10.7
+        },
+        {
+          "week": "2025-03-31",
+          "attempts": 74,
+          "cardStatus": 4.1
+        },
+        {
+          "week": "2025-04-07",
+          "attempts": 70,
+          "cardStatus": 1.4
+        },
+        {
+          "week": "2025-04-14",
+          "attempts": 74,
+          "cardStatus": 6.8
+        },
+        {
+          "week": "2025-04-21",
+          "attempts": 70,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-04-28",
+          "attempts": 81,
+          "cardStatus": 6.2
+        },
+        {
+          "week": "2025-05-05",
+          "attempts": 69,
+          "cardStatus": 2.9
+        },
+        {
+          "week": "2025-05-12",
+          "attempts": 79,
+          "cardStatus": 3.8
+        },
+        {
+          "week": "2025-05-19",
+          "attempts": 73,
+          "cardStatus": 5.5
+        },
+        {
+          "week": "2025-05-26",
+          "attempts": 60,
+          "cardStatus": 6.7
+        },
+        {
+          "week": "2025-06-02",
+          "attempts": 69,
+          "cardStatus": 4.3
+        },
+        {
+          "week": "2025-06-09",
+          "attempts": 80,
+          "cardStatus": 7.5
+        },
+        {
+          "week": "2025-06-16",
+          "attempts": 77,
+          "cardStatus": 6.5
+        },
+        {
+          "week": "2025-06-23",
+          "attempts": 74,
+          "cardStatus": 5.4
+        },
+        {
+          "week": "2025-06-30",
+          "attempts": 77,
+          "cardStatus": 7.8
+        },
+        {
+          "week": "2025-07-07",
+          "attempts": 78,
+          "cardStatus": 2.6
+        },
+        {
+          "week": "2025-07-14",
+          "attempts": 85,
+          "cardStatus": 4.7
+        },
+        {
+          "week": "2025-07-21",
+          "attempts": 80,
+          "cardStatus": 2.5
+        },
+        {
+          "week": "2025-07-28",
+          "attempts": 77,
+          "cardStatus": 1.3
+        },
+        {
+          "week": "2025-08-04",
+          "attempts": 84,
+          "cardStatus": 9.5
+        },
+        {
+          "week": "2025-08-11",
+          "attempts": 57,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-08-18",
+          "attempts": 85,
+          "cardStatus": 8.2
+        },
+        {
+          "week": "2025-08-25",
+          "attempts": 74,
+          "cardStatus": 4.1
+        },
+        {
+          "week": "2025-09-01",
+          "attempts": 87,
+          "cardStatus": 2.3
+        },
+        {
+          "week": "2025-09-08",
+          "attempts": 94,
+          "cardStatus": 1.1
+        },
+        {
+          "week": "2025-09-15",
+          "attempts": 74,
+          "cardStatus": 4.1
+        },
+        {
+          "week": "2025-09-22",
+          "attempts": 83,
+          "cardStatus": 7.2
+        },
+        {
+          "week": "2025-09-29",
+          "attempts": 86,
+          "cardStatus": 3.5
+        },
+        {
+          "week": "2025-10-06",
+          "attempts": 61,
+          "cardStatus": 6.6
+        },
+        {
+          "week": "2025-10-13",
+          "attempts": 80,
+          "cardStatus": 3.8
+        },
+        {
+          "week": "2025-10-20",
+          "attempts": 90,
+          "cardStatus": 3.3
+        },
+        {
+          "week": "2025-10-27",
+          "attempts": 81,
+          "cardStatus": 4.9
+        },
+        {
+          "week": "2025-11-03",
+          "attempts": 84,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-11-10",
+          "attempts": 91,
+          "cardStatus": 2.2
+        },
+        {
+          "week": "2025-11-17",
+          "attempts": 69,
+          "cardStatus": 4.3
+        },
+        {
+          "week": "2025-11-24",
+          "attempts": 90,
+          "cardStatus": 6.7
+        },
+        {
+          "week": "2025-12-01",
+          "attempts": 98,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-12-08",
+          "attempts": 82,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-12-15",
+          "attempts": 87,
+          "cardStatus": 5.7
+        },
+        {
+          "week": "2025-12-22",
+          "attempts": 87,
+          "cardStatus": 4.6
+        },
+        {
+          "week": "2025-12-29",
+          "attempts": 43,
+          "cardStatus": 2.3
+        }
+      ],
+      "reasons": [
+        {
+          "reason": "Card details",
+          "declines": 210,
+          "shareOfDeclines": 26.0,
+          "rate": 5.3
+        },
+        {
+          "reason": "Insufficient limit",
+          "declines": 444,
+          "shareOfDeclines": 54.9,
+          "rate": 11.1
+        },
+        {
+          "reason": "Fraud checks",
+          "declines": 155,
+          "shareOfDeclines": 19.2,
+          "rate": 3.9
+        }
+      ],
+      "break": null,
+      "insights": [
+        {
+          "severity": "good",
+          "title": "Nothing in your data crossed an alert threshold this period",
+          "body": "Approval rate 79.7% across 3,992 attempts, with no decline reason leaving its usual range.",
+          "action": "The tabs below carry the full breakdown."
+        }
+      ]
     },
-    {
-      "month": "Apr",
-      "attempts": 1308,
-      "approvalRate": 68.9,
-      "cardStatus": 24.4,
-      "limitExceeded": 5.7,
-      "fraudRisk": 1.0,
-      "approvedValue": 36770.9
+    "M4": {
+      "id": "M4",
+      "attempts": 3537,
+      "approvalRate": 81.5,
+      "approvalRatePre": 81.6,
+      "approvalRatePost": 81.2,
+      "customers": 2964,
+      "approvedValue": 739588.49,
+      "medianAmount": 258.69,
+      "monthly": [
+        {
+          "month": "Jan",
+          "attempts": 249,
+          "approvalRate": 75.1,
+          "cardStatus": 8.0,
+          "limitExceeded": 14.5,
+          "fraudRisk": 2.4,
+          "approvedValue": 45836.16
+        },
+        {
+          "month": "Feb",
+          "attempts": 234,
+          "approvalRate": 82.5,
+          "cardStatus": 4.3,
+          "limitExceeded": 12.8,
+          "fraudRisk": 0.4,
+          "approvedValue": 48791.17
+        },
+        {
+          "month": "Mar",
+          "attempts": 275,
+          "approvalRate": 84.4,
+          "cardStatus": 4.7,
+          "limitExceeded": 8.0,
+          "fraudRisk": 2.9,
+          "approvedValue": 59972.73
+        },
+        {
+          "month": "Apr",
+          "attempts": 278,
+          "approvalRate": 82.4,
+          "cardStatus": 5.4,
+          "limitExceeded": 10.4,
+          "fraudRisk": 1.8,
+          "approvedValue": 61543.57
+        },
+        {
+          "month": "May",
+          "attempts": 280,
+          "approvalRate": 83.6,
+          "cardStatus": 3.9,
+          "limitExceeded": 11.4,
+          "fraudRisk": 1.1,
+          "approvedValue": 66200.15
+        },
+        {
+          "month": "Jun",
+          "attempts": 329,
+          "approvalRate": 83.0,
+          "cardStatus": 4.6,
+          "limitExceeded": 9.1,
+          "fraudRisk": 3.3,
+          "approvedValue": 70273.17
+        },
+        {
+          "month": "Jul",
+          "attempts": 273,
+          "approvalRate": 79.5,
+          "cardStatus": 6.6,
+          "limitExceeded": 13.2,
+          "fraudRisk": 0.7,
+          "approvedValue": 54588.26
+        },
+        {
+          "month": "Aug",
+          "attempts": 299,
+          "approvalRate": 79.9,
+          "cardStatus": 6.0,
+          "limitExceeded": 11.4,
+          "fraudRisk": 2.7,
+          "approvedValue": 62163.6
+        },
+        {
+          "month": "Sep",
+          "attempts": 350,
+          "approvalRate": 82.9,
+          "cardStatus": 2.3,
+          "limitExceeded": 13.4,
+          "fraudRisk": 1.4,
+          "approvedValue": 72971.83
+        },
+        {
+          "month": "Oct",
+          "attempts": 311,
+          "approvalRate": 76.5,
+          "cardStatus": 7.4,
+          "limitExceeded": 14.1,
+          "fraudRisk": 1.9,
+          "approvedValue": 57631.92
+        },
+        {
+          "month": "Nov",
+          "attempts": 317,
+          "approvalRate": 84.9,
+          "cardStatus": 5.0,
+          "limitExceeded": 8.8,
+          "fraudRisk": 1.3,
+          "approvedValue": 69859.15
+        },
+        {
+          "month": "Dec",
+          "attempts": 342,
+          "approvalRate": 82.2,
+          "cardStatus": 3.5,
+          "limitExceeded": 12.3,
+          "fraudRisk": 2.0,
+          "approvedValue": 69756.78
+        }
+      ],
+      "weekly": [
+        {
+          "week": "2024-12-30",
+          "attempts": 33,
+          "cardStatus": 12.1
+        },
+        {
+          "week": "2025-01-06",
+          "attempts": 46,
+          "cardStatus": 10.9
+        },
+        {
+          "week": "2025-01-13",
+          "attempts": 69,
+          "cardStatus": 5.8
+        },
+        {
+          "week": "2025-01-20",
+          "attempts": 55,
+          "cardStatus": 10.9
+        },
+        {
+          "week": "2025-01-27",
+          "attempts": 59,
+          "cardStatus": 3.4
+        },
+        {
+          "week": "2025-02-03",
+          "attempts": 66,
+          "cardStatus": 4.5
+        },
+        {
+          "week": "2025-02-10",
+          "attempts": 60,
+          "cardStatus": 3.3
+        },
+        {
+          "week": "2025-02-17",
+          "attempts": 50,
+          "cardStatus": 6.0
+        },
+        {
+          "week": "2025-02-24",
+          "attempts": 61,
+          "cardStatus": 1.6
+        },
+        {
+          "week": "2025-03-03",
+          "attempts": 64,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-03-10",
+          "attempts": 66,
+          "cardStatus": 9.1
+        },
+        {
+          "week": "2025-03-17",
+          "attempts": 65,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-03-24",
+          "attempts": 54,
+          "cardStatus": 5.6
+        },
+        {
+          "week": "2025-03-31",
+          "attempts": 71,
+          "cardStatus": 11.3
+        },
+        {
+          "week": "2025-04-07",
+          "attempts": 57,
+          "cardStatus": 3.5
+        },
+        {
+          "week": "2025-04-14",
+          "attempts": 62,
+          "cardStatus": 4.8
+        },
+        {
+          "week": "2025-04-21",
+          "attempts": 74,
+          "cardStatus": 2.7
+        },
+        {
+          "week": "2025-04-28",
+          "attempts": 57,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-05-05",
+          "attempts": 62,
+          "cardStatus": 1.6
+        },
+        {
+          "week": "2025-05-12",
+          "attempts": 64,
+          "cardStatus": 4.7
+        },
+        {
+          "week": "2025-05-19",
+          "attempts": 64,
+          "cardStatus": 4.7
+        },
+        {
+          "week": "2025-05-26",
+          "attempts": 72,
+          "cardStatus": 5.6
+        },
+        {
+          "week": "2025-06-02",
+          "attempts": 66,
+          "cardStatus": 4.5
+        },
+        {
+          "week": "2025-06-09",
+          "attempts": 92,
+          "cardStatus": 3.3
+        },
+        {
+          "week": "2025-06-16",
+          "attempts": 76,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-06-23",
+          "attempts": 69,
+          "cardStatus": 2.9
+        },
+        {
+          "week": "2025-06-30",
+          "attempts": 66,
+          "cardStatus": 10.6
+        },
+        {
+          "week": "2025-07-07",
+          "attempts": 52,
+          "cardStatus": 3.8
+        },
+        {
+          "week": "2025-07-14",
+          "attempts": 58,
+          "cardStatus": 8.6
+        },
+        {
+          "week": "2025-07-21",
+          "attempts": 72,
+          "cardStatus": 5.6
+        },
+        {
+          "week": "2025-07-28",
+          "attempts": 65,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-08-04",
+          "attempts": 74,
+          "cardStatus": 8.1
+        },
+        {
+          "week": "2025-08-11",
+          "attempts": 59,
+          "cardStatus": 3.4
+        },
+        {
+          "week": "2025-08-18",
+          "attempts": 65,
+          "cardStatus": 4.6
+        },
+        {
+          "week": "2025-08-25",
+          "attempts": 72,
+          "cardStatus": 9.7
+        },
+        {
+          "week": "2025-09-01",
+          "attempts": 75,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-09-08",
+          "attempts": 69,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-09-15",
+          "attempts": 91,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-09-22",
+          "attempts": 89,
+          "cardStatus": 4.5
+        },
+        {
+          "week": "2025-09-29",
+          "attempts": 77,
+          "cardStatus": 5.2
+        },
+        {
+          "week": "2025-10-06",
+          "attempts": 76,
+          "cardStatus": 9.2
+        },
+        {
+          "week": "2025-10-13",
+          "attempts": 65,
+          "cardStatus": 7.7
+        },
+        {
+          "week": "2025-10-20",
+          "attempts": 82,
+          "cardStatus": 6.1
+        },
+        {
+          "week": "2025-10-27",
+          "attempts": 62,
+          "cardStatus": 8.1
+        },
+        {
+          "week": "2025-11-03",
+          "attempts": 60,
+          "cardStatus": 1.7
+        },
+        {
+          "week": "2025-11-10",
+          "attempts": 67,
+          "cardStatus": 3.0
+        },
+        {
+          "week": "2025-11-17",
+          "attempts": 81,
+          "cardStatus": 7.4
+        },
+        {
+          "week": "2025-11-24",
+          "attempts": 84,
+          "cardStatus": 4.8
+        },
+        {
+          "week": "2025-12-01",
+          "attempts": 83,
+          "cardStatus": 3.6
+        },
+        {
+          "week": "2025-12-08",
+          "attempts": 67,
+          "cardStatus": 4.5
+        },
+        {
+          "week": "2025-12-15",
+          "attempts": 88,
+          "cardStatus": 3.4
+        },
+        {
+          "week": "2025-12-22",
+          "attempts": 59,
+          "cardStatus": 3.4
+        },
+        {
+          "week": "2025-12-29",
+          "attempts": 45,
+          "cardStatus": 2.2
+        }
+      ],
+      "reasons": [
+        {
+          "reason": "Card details",
+          "declines": 179,
+          "shareOfDeclines": 27.3,
+          "rate": 5.1
+        },
+        {
+          "reason": "Insufficient limit",
+          "declines": 410,
+          "shareOfDeclines": 62.6,
+          "rate": 11.6
+        },
+        {
+          "reason": "Fraud checks",
+          "declines": 66,
+          "shareOfDeclines": 10.1,
+          "rate": 1.9
+        }
+      ],
+      "break": null,
+      "insights": [
+        {
+          "severity": "good",
+          "title": "Nothing in your data crossed an alert threshold this period",
+          "body": "Approval rate 81.5% across 3,537 attempts, with no decline reason leaving its usual range.",
+          "action": "The tabs below carry the full breakdown."
+        }
+      ]
     },
-    {
-      "month": "May",
-      "attempts": 1296,
-      "approvalRate": 70.1,
-      "cardStatus": 23.4,
-      "limitExceeded": 5.7,
-      "fraudRisk": 0.8,
-      "approvedValue": 37499.1
-    },
-    {
-      "month": "Jun",
-      "attempts": 1317,
-      "approvalRate": 69.1,
-      "cardStatus": 23.6,
-      "limitExceeded": 6.1,
-      "fraudRisk": 1.2,
-      "approvedValue": 37247.0
-    },
-    {
-      "month": "Jul",
-      "attempts": 1349,
-      "approvalRate": 69.0,
-      "cardStatus": 24.1,
-      "limitExceeded": 6.1,
-      "fraudRisk": 0.8,
-      "approvedValue": 38075.9
-    },
-    {
-      "month": "Aug",
-      "attempts": 1336,
-      "approvalRate": 67.0,
-      "cardStatus": 23.1,
-      "limitExceeded": 9.1,
-      "fraudRisk": 0.8,
-      "approvedValue": 36807.5
-    },
-    {
-      "month": "Sep",
-      "attempts": 1345,
-      "approvalRate": 67.1,
-      "cardStatus": 24.2,
-      "limitExceeded": 7.5,
-      "fraudRisk": 1.2,
-      "approvedValue": 37193.8
-    },
-    {
-      "month": "Oct",
-      "attempts": 1372,
-      "approvalRate": 58.5,
-      "cardStatus": 32.8,
-      "limitExceeded": 7.5,
-      "fraudRisk": 1.2,
-      "approvedValue": 33357.7
-    },
-    {
-      "month": "Nov",
-      "attempts": 1345,
-      "approvalRate": 52.8,
-      "cardStatus": 39.0,
-      "limitExceeded": 7.4,
-      "fraudRisk": 0.8,
-      "approvedValue": 29608.0
-    },
-    {
-      "month": "Dec",
-      "attempts": 1335,
-      "approvalRate": 52.2,
-      "cardStatus": 41.0,
-      "limitExceeded": 5.6,
-      "fraudRisk": 1.1,
-      "approvedValue": 28748.3
+    "M5": {
+      "id": "M5",
+      "attempts": 2822,
+      "approvalRate": 81.5,
+      "approvalRatePre": 81.2,
+      "approvalRatePost": 82.2,
+      "customers": 2461,
+      "approvedValue": 113831.58,
+      "medianAmount": 49.9,
+      "monthly": [
+        {
+          "month": "Jan",
+          "attempts": 203,
+          "approvalRate": 79.8,
+          "cardStatus": 9.4,
+          "limitExceeded": 6.9,
+          "fraudRisk": 3.9,
+          "approvedValue": 7931.77
+        },
+        {
+          "month": "Feb",
+          "attempts": 227,
+          "approvalRate": 81.9,
+          "cardStatus": 4.4,
+          "limitExceeded": 7.5,
+          "fraudRisk": 6.2,
+          "approvedValue": 8876.09
+        },
+        {
+          "month": "Mar",
+          "attempts": 223,
+          "approvalRate": 79.4,
+          "cardStatus": 4.9,
+          "limitExceeded": 9.0,
+          "fraudRisk": 6.7,
+          "approvedValue": 8618.54
+        },
+        {
+          "month": "Apr",
+          "attempts": 207,
+          "approvalRate": 79.7,
+          "cardStatus": 9.2,
+          "limitExceeded": 7.7,
+          "fraudRisk": 3.4,
+          "approvedValue": 7962.74
+        },
+        {
+          "month": "May",
+          "attempts": 221,
+          "approvalRate": 81.4,
+          "cardStatus": 4.5,
+          "limitExceeded": 8.6,
+          "fraudRisk": 5.4,
+          "approvedValue": 8520.33
+        },
+        {
+          "month": "Jun",
+          "attempts": 231,
+          "approvalRate": 81.4,
+          "cardStatus": 4.3,
+          "limitExceeded": 10.4,
+          "fraudRisk": 3.9,
+          "approvedValue": 9228.98
+        },
+        {
+          "month": "Jul",
+          "attempts": 227,
+          "approvalRate": 83.7,
+          "cardStatus": 5.7,
+          "limitExceeded": 5.3,
+          "fraudRisk": 5.3,
+          "approvedValue": 9470.79
+        },
+        {
+          "month": "Aug",
+          "attempts": 231,
+          "approvalRate": 83.1,
+          "cardStatus": 5.6,
+          "limitExceeded": 7.8,
+          "fraudRisk": 3.5,
+          "approvedValue": 9329.77
+        },
+        {
+          "month": "Sep",
+          "attempts": 260,
+          "approvalRate": 80.4,
+          "cardStatus": 7.7,
+          "limitExceeded": 7.7,
+          "fraudRisk": 4.2,
+          "approvedValue": 10805.61
+        },
+        {
+          "month": "Oct",
+          "attempts": 263,
+          "approvalRate": 81.7,
+          "cardStatus": 4.2,
+          "limitExceeded": 8.0,
+          "fraudRisk": 6.1,
+          "approvedValue": 10060.54
+        },
+        {
+          "month": "Nov",
+          "attempts": 257,
+          "approvalRate": 80.5,
+          "cardStatus": 7.8,
+          "limitExceeded": 8.9,
+          "fraudRisk": 2.7,
+          "approvedValue": 10832.72
+        },
+        {
+          "month": "Dec",
+          "attempts": 272,
+          "approvalRate": 84.2,
+          "cardStatus": 4.8,
+          "limitExceeded": 7.4,
+          "fraudRisk": 3.7,
+          "approvedValue": 12193.7
+        }
+      ],
+      "weekly": [
+        {
+          "week": "2024-12-30",
+          "attempts": 30,
+          "cardStatus": 16.7
+        },
+        {
+          "week": "2025-01-06",
+          "attempts": 47,
+          "cardStatus": 6.4
+        },
+        {
+          "week": "2025-01-13",
+          "attempts": 51,
+          "cardStatus": 9.8
+        },
+        {
+          "week": "2025-01-20",
+          "attempts": 37,
+          "cardStatus": 5.4
+        },
+        {
+          "week": "2025-01-27",
+          "attempts": 52,
+          "cardStatus": 7.7
+        },
+        {
+          "week": "2025-02-03",
+          "attempts": 50,
+          "cardStatus": 8.0
+        },
+        {
+          "week": "2025-02-10",
+          "attempts": 63,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-02-17",
+          "attempts": 52,
+          "cardStatus": 7.7
+        },
+        {
+          "week": "2025-02-24",
+          "attempts": 64,
+          "cardStatus": 3.1
+        },
+        {
+          "week": "2025-03-03",
+          "attempts": 42,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-03-10",
+          "attempts": 47,
+          "cardStatus": 2.1
+        },
+        {
+          "week": "2025-03-17",
+          "attempts": 62,
+          "cardStatus": 8.1
+        },
+        {
+          "week": "2025-03-24",
+          "attempts": 47,
+          "cardStatus": 4.3
+        },
+        {
+          "week": "2025-03-31",
+          "attempts": 53,
+          "cardStatus": 9.4
+        },
+        {
+          "week": "2025-04-07",
+          "attempts": 47,
+          "cardStatus": 6.4
+        },
+        {
+          "week": "2025-04-14",
+          "attempts": 43,
+          "cardStatus": 7.0
+        },
+        {
+          "week": "2025-04-21",
+          "attempts": 46,
+          "cardStatus": 8.7
+        },
+        {
+          "week": "2025-04-28",
+          "attempts": 62,
+          "cardStatus": 8.1
+        },
+        {
+          "week": "2025-05-05",
+          "attempts": 39,
+          "cardStatus": 5.1
+        },
+        {
+          "week": "2025-05-12",
+          "attempts": 61,
+          "cardStatus": 6.6
+        },
+        {
+          "week": "2025-05-19",
+          "attempts": 44,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-05-26",
+          "attempts": 46,
+          "cardStatus": 6.5
+        },
+        {
+          "week": "2025-06-02",
+          "attempts": 55,
+          "cardStatus": 5.5
+        },
+        {
+          "week": "2025-06-09",
+          "attempts": 56,
+          "cardStatus": 5.4
+        },
+        {
+          "week": "2025-06-16",
+          "attempts": 57,
+          "cardStatus": 5.3
+        },
+        {
+          "week": "2025-06-23",
+          "attempts": 51,
+          "cardStatus": 2.0
+        },
+        {
+          "week": "2025-06-30",
+          "attempts": 56,
+          "cardStatus": 5.4
+        },
+        {
+          "week": "2025-07-07",
+          "attempts": 44,
+          "cardStatus": 4.5
+        },
+        {
+          "week": "2025-07-14",
+          "attempts": 56,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-07-21",
+          "attempts": 55,
+          "cardStatus": 5.5
+        },
+        {
+          "week": "2025-07-28",
+          "attempts": 52,
+          "cardStatus": 5.8
+        },
+        {
+          "week": "2025-08-04",
+          "attempts": 50,
+          "cardStatus": 4.0
+        },
+        {
+          "week": "2025-08-11",
+          "attempts": 51,
+          "cardStatus": 9.8
+        },
+        {
+          "week": "2025-08-18",
+          "attempts": 45,
+          "cardStatus": 0.0
+        },
+        {
+          "week": "2025-08-25",
+          "attempts": 57,
+          "cardStatus": 7.0
+        },
+        {
+          "week": "2025-09-01",
+          "attempts": 59,
+          "cardStatus": 8.5
+        },
+        {
+          "week": "2025-09-08",
+          "attempts": 70,
+          "cardStatus": 5.7
+        },
+        {
+          "week": "2025-09-15",
+          "attempts": 48,
+          "cardStatus": 8.3
+        },
+        {
+          "week": "2025-09-22",
+          "attempts": 66,
+          "cardStatus": 10.6
+        },
+        {
+          "week": "2025-09-29",
+          "attempts": 66,
+          "cardStatus": 6.1
+        },
+        {
+          "week": "2025-10-06",
+          "attempts": 54,
+          "cardStatus": 5.6
+        },
+        {
+          "week": "2025-10-13",
+          "attempts": 56,
+          "cardStatus": 1.8
+        },
+        {
+          "week": "2025-10-20",
+          "attempts": 61,
+          "cardStatus": 3.3
+        },
+        {
+          "week": "2025-10-27",
+          "attempts": 59,
+          "cardStatus": 1.7
+        },
+        {
+          "week": "2025-11-03",
+          "attempts": 66,
+          "cardStatus": 6.1
+        },
+        {
+          "week": "2025-11-10",
+          "attempts": 63,
+          "cardStatus": 4.8
+        },
+        {
+          "week": "2025-11-17",
+          "attempts": 56,
+          "cardStatus": 7.1
+        },
+        {
+          "week": "2025-11-24",
+          "attempts": 56,
+          "cardStatus": 16.1
+        },
+        {
+          "week": "2025-12-01",
+          "attempts": 77,
+          "cardStatus": 2.6
+        },
+        {
+          "week": "2025-12-08",
+          "attempts": 71,
+          "cardStatus": 7.0
+        },
+        {
+          "week": "2025-12-15",
+          "attempts": 52,
+          "cardStatus": 3.8
+        },
+        {
+          "week": "2025-12-22",
+          "attempts": 54,
+          "cardStatus": 3.7
+        }
+      ],
+      "reasons": [
+        {
+          "reason": "Card details",
+          "declines": 169,
+          "shareOfDeclines": 32.4,
+          "rate": 6.0
+        },
+        {
+          "reason": "Insufficient limit",
+          "declines": 224,
+          "shareOfDeclines": 42.9,
+          "rate": 7.9
+        },
+        {
+          "reason": "Fraud checks",
+          "declines": 129,
+          "shareOfDeclines": 24.7,
+          "rate": 4.6
+        }
+      ],
+      "break": null,
+      "insights": [
+        {
+          "severity": "good",
+          "title": "Nothing in your data crossed an alert threshold this period",
+          "body": "Approval rate 81.5% across 2,822 attempts, with no decline reason leaving its usual range.",
+          "action": "The tabs below carry the full breakdown."
+        }
+      ]
     }
-  ],
-  "weekly": [
-    {
-      "week": "2024-12-30",
-      "attempts": 216,
-      "cardStatus": 22.7
-    },
-    {
-      "week": "2025-01-06",
-      "attempts": 331,
-      "cardStatus": 22.4
-    },
-    {
-      "week": "2025-01-13",
-      "attempts": 327,
-      "cardStatus": 28.1
-    },
-    {
-      "week": "2025-01-20",
-      "attempts": 342,
-      "cardStatus": 19.9
-    },
-    {
-      "week": "2025-01-27",
-      "attempts": 200,
-      "cardStatus": 22.5
-    },
-    {
-      "week": "2025-02-03",
-      "attempts": 309,
-      "cardStatus": 25.2
-    },
-    {
-      "week": "2025-02-10",
-      "attempts": 332,
-      "cardStatus": 25.6
-    },
-    {
-      "week": "2025-02-17",
-      "attempts": 336,
-      "cardStatus": 27.1
-    },
-    {
-      "week": "2025-02-24",
-      "attempts": 330,
-      "cardStatus": 22.4
-    },
-    {
-      "week": "2025-03-03",
-      "attempts": 308,
-      "cardStatus": 19.2
-    },
-    {
-      "week": "2025-03-10",
-      "attempts": 357,
-      "cardStatus": 23.2
-    },
-    {
-      "week": "2025-03-17",
-      "attempts": 325,
-      "cardStatus": 27.4
-    },
-    {
-      "week": "2025-03-24",
-      "attempts": 259,
-      "cardStatus": 25.5
-    },
-    {
-      "week": "2025-03-31",
-      "attempts": 267,
-      "cardStatus": 22.1
-    },
-    {
-      "week": "2025-04-07",
-      "attempts": 320,
-      "cardStatus": 22.5
-    },
-    {
-      "week": "2025-04-14",
-      "attempts": 321,
-      "cardStatus": 27.4
-    },
-    {
-      "week": "2025-04-21",
-      "attempts": 343,
-      "cardStatus": 23.6
-    },
-    {
-      "week": "2025-04-28",
-      "attempts": 234,
-      "cardStatus": 28.2
-    },
-    {
-      "week": "2025-05-05",
-      "attempts": 330,
-      "cardStatus": 17.3
-    },
-    {
-      "week": "2025-05-12",
-      "attempts": 318,
-      "cardStatus": 23.9
-    },
-    {
-      "week": "2025-05-19",
-      "attempts": 320,
-      "cardStatus": 25.9
-    },
-    {
-      "week": "2025-05-26",
-      "attempts": 197,
-      "cardStatus": 26.9
-    },
-    {
-      "week": "2025-06-02",
-      "attempts": 328,
-      "cardStatus": 23.2
-    },
-    {
-      "week": "2025-06-09",
-      "attempts": 351,
-      "cardStatus": 23.6
-    },
-    {
-      "week": "2025-06-16",
-      "attempts": 314,
-      "cardStatus": 25.8
-    },
-    {
-      "week": "2025-06-23",
-      "attempts": 275,
-      "cardStatus": 20.0
-    },
-    {
-      "week": "2025-06-30",
-      "attempts": 277,
-      "cardStatus": 24.5
-    },
-    {
-      "week": "2025-07-07",
-      "attempts": 328,
-      "cardStatus": 22.6
-    },
-    {
-      "week": "2025-07-14",
-      "attempts": 340,
-      "cardStatus": 25.9
-    },
-    {
-      "week": "2025-07-21",
-      "attempts": 347,
-      "cardStatus": 24.8
-    },
-    {
-      "week": "2025-07-28",
-      "attempts": 214,
-      "cardStatus": 19.6
-    },
-    {
-      "week": "2025-08-04",
-      "attempts": 309,
-      "cardStatus": 23.9
-    },
-    {
-      "week": "2025-08-11",
-      "attempts": 351,
-      "cardStatus": 23.1
-    },
-    {
-      "week": "2025-08-18",
-      "attempts": 311,
-      "cardStatus": 24.8
-    },
-    {
-      "week": "2025-08-25",
-      "attempts": 218,
-      "cardStatus": 22.5
-    },
-    {
-      "week": "2025-09-01",
-      "attempts": 325,
-      "cardStatus": 24.9
-    },
-    {
-      "week": "2025-09-08",
-      "attempts": 342,
-      "cardStatus": 23.7
-    },
-    {
-      "week": "2025-09-15",
-      "attempts": 328,
-      "cardStatus": 25.9
-    },
-    {
-      "week": "2025-09-22",
-      "attempts": 342,
-      "cardStatus": 22.2
-    },
-    {
-      "week": "2025-09-29",
-      "attempts": 232,
-      "cardStatus": 36.6
-    },
-    {
-      "week": "2025-10-06",
-      "attempts": 342,
-      "cardStatus": 32.2
-    },
-    {
-      "week": "2025-10-13",
-      "attempts": 342,
-      "cardStatus": 30.4
-    },
-    {
-      "week": "2025-10-20",
-      "attempts": 326,
-      "cardStatus": 32.5
-    },
-    {
-      "week": "2025-10-27",
-      "attempts": 223,
-      "cardStatus": 37.2
-    },
-    {
-      "week": "2025-11-03",
-      "attempts": 305,
-      "cardStatus": 40.7
-    },
-    {
-      "week": "2025-11-10",
-      "attempts": 380,
-      "cardStatus": 37.4
-    },
-    {
-      "week": "2025-11-17",
-      "attempts": 307,
-      "cardStatus": 38.4
-    },
-    {
-      "week": "2025-11-24",
-      "attempts": 268,
-      "cardStatus": 39.6
-    },
-    {
-      "week": "2025-12-01",
-      "attempts": 300,
-      "cardStatus": 36.3
-    },
-    {
-      "week": "2025-12-08",
-      "attempts": 359,
-      "cardStatus": 40.1
-    },
-    {
-      "week": "2025-12-15",
-      "attempts": 325,
-      "cardStatus": 41.5
-    },
-    {
-      "week": "2025-12-22",
-      "attempts": 325,
-      "cardStatus": 44.0
-    }
-  ],
-  "reasons": [
-    {
-      "reason": "Card Status",
-      "denials": 4371,
-      "shareOfDenials": 77.4,
-      "ratePre": 23.9,
-      "ratePost": 37.6,
-      "change": 13.7
-    },
-    {
-      "reason": "Limit Exceeded",
-      "denials": 1121,
-      "shareOfDenials": 19.8,
-      "ratePre": 7.1,
-      "ratePost": 6.8,
-      "change": -0.2
-    },
-    {
-      "reason": "Fraud Risk",
-      "denials": 156,
-      "shareOfDenials": 2.8,
-      "ratePre": 1.0,
-      "ratePost": 1.0,
-      "change": 0.1
-    }
-  ]
+  }
 }
