@@ -65,17 +65,31 @@ header.top { padding: 26px 0 16px; }
 .brand .nu { color: var(--purple); }
 .tagline { font-size: 13.5px; color: var(--ink-2); margin-top: 5px; max-width: 660px; }
 
+.adminbar {
+  background: #2A2833; color: #FFFFFF;
+  padding: 10px 20px; font-size: 13px;
+  border-bottom: 1px solid #3D3A48;
+}
+.adminbar .inner {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+}
+.adminbar .role { font-weight: 700; }
+.adminbar label { color: rgba(255,255,255,0.72); }
+.adminbar select {
+  font: inherit; font-size: 13px; font-weight: 600; padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,0.28); border-radius: 6px;
+  background: rgba(255,255,255,0.10); color: #FFFFFF;
+}
+.adminbar select option { color: var(--ink); background: #FFFFFF; }
+.adminbar .note { color: rgba(255,255,255,0.72); font-size: 12.5px; }
+
 .account {
   margin-top: 18px; padding: 13px 15px; background: var(--surface);
   border: 1px solid var(--rule); border-radius: 8px;
   display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; font-size: 13.5px;
 }
-.account label { font-weight: 600; }
-.account select {
-  font: inherit; font-size: 13.5px; font-weight: 600; padding: 5px 9px;
-  border: 1px solid var(--rule); border-radius: 6px;
-  background: var(--plane); color: var(--ink);
-}
+.account .who { font-weight: 700; }
 .account .meta { color: var(--muted); font-size: 12.5px; }
 
 .review { margin-top: 24px; }
@@ -168,6 +182,15 @@ footer { margin-top: 30px; font-size: 12px; color: var(--muted); line-height: 1.
   </div>
 </div>
 
+<div class="adminbar">
+  <div class="inner">
+    <span class="role">Internal view: Nubank Authorization</span>
+    <label for="partner">Open partner account</label>
+    <select id="partner"></select>
+    <span class="note">A partner signs in to their own account only. They see no switcher and no other partner's data.</span>
+  </div>
+</div>
+
 <div class="wrap">
   <header class="top">
     <div class="lockup">
@@ -179,9 +202,8 @@ footer { margin-top: 30px; font-size: 12px; color: var(--muted); line-height: 1.
     </div>
     <div class="tagline">Revenue intelligence for commercial partners. Your authorization performance is reviewed automatically every week, and each decline reason is mapped to whichever side of the transaction can act on it.</div>
     <div class="account">
-      <label for="partner">Viewing as</label>
-      <select id="partner"></select>
-      <span class="meta">Demonstration account</span>
+      <span class="who" id="account-name"></span>
+      <span class="meta">This is the view that partner sees when they sign in</span>
       <span class="meta" id="period"></span>
       <span class="meta" id="attempts"></span>
     </div>
@@ -257,7 +279,7 @@ footer { margin-top: 30px; font-size: 12px; color: var(--muted); line-height: 1.
   <div class="method">
     <h3>How this review is produced</h3>
     <p id="method-body"></p>
-    <p>The rules are deliberately simple and stated rather than learned, because a partner reading an alert is owed a rule they can check. Nothing here is written by hand for any individual partner: the same rules run against every partner's data, and most periods produce no flags at all. Switching accounts above shows that directly.</p>
+    <p>The rules are deliberately simple and stated rather than learned, because a partner reading an alert is owed a rule they can check. Nothing here is written by hand for any individual partner: the same rules run against every partner's data, and most periods produce no flags at all. Opening a different partner account from the internal bar at the top shows that directly: the same rules run on all five and only one of them trips.</p>
   </div>
 
   <footer>
@@ -368,6 +390,7 @@ let DATA = null;
 
 function render(id) {
   const d = DATA.partners[id];
+  document.getElementById('account-name').textContent = id + ' partner account';
   document.getElementById('period').textContent = DATA.period;
   document.getElementById('attempts').textContent = num(d.attempts) + ' authorization attempts';
 
